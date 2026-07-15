@@ -1,10 +1,10 @@
 -- -----------------------------------------------------------------------------
--- Programación Declarativa 2022/23
--- Grado de Ingeniería Informática - Tecnologías Informáticas
--- Septiembre (segunda convocatoria)                     7 de Septiembre de 2022
+-- Declarative Programming 2022/23
+-- Degree in Computer Engineering - Information Technologies
+-- September (second sitting)                     September 7, 2022
 -- -----------------------------------------------------------------------------
--- Apellidos:
--- Nombre:
+-- Surnames:
+-- Name:
 -- UVUS:
 -- -----------------------------------------------------------------------------
 
@@ -17,19 +17,19 @@ import Data.List
 import Text.CSV
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 1 (2,5 puntos)
--- Sheldon, Leonard, Penny, Rajesh y Howard están haciendo cola para una máquina
--- de vending llamada "doble cola". No hay más gente esperando en la cola. La
--- primera persona (Sheldon) compra una lata, bebe de ella y se duplica! Esto 
--- resulta en dos Sheldon que se van al final de la cola. Después viene el
--- siguiente (Leonard), compra una lata, bebe, se duplica y los dos Leonards
--- se van al final de la cola, y así sucesivamente. Se pide escribir una función
--- que nos diga el nombre de la persona que bebe la n-ésima coca cola.
--- Pista: Hay varias formas de solucionar este ejercicio, por ejemplo con listas
--- infinitas definidas con recursión sin caso base, o funciones como replicate, 
--- iterate o cycle pueden ser útiles.
+-- Exercise 1 (2,5 puntos)
+-- Sheldon, Leonard, Penny, Rajesh and Howard are doing tail for a machine
+-- of vending double "call tail". There are not more people expecting in the tail. The
+-- first person (Sheldon) purchase a tin, drinks of her and duplicates ! This 
+-- results in two Sheldon that they go  at the end of the tail. Afterwards it comes the
+-- following (Leonard), buys a tin, drinks, duplicates  and the two Leonards
+-- go  at the end of the tail, and like this successively. It asks  write a function
+-- that say us the name of the person that drinks the n-ésima coca tail.
+-- Clue: there are several forms to solve this exercise, for example with clear-cut
+-- infinite lists with recursion without basic case, or functions like replicate, 
+-- iterate or cycle can be useful.
 
--- Por ejemplo,
+-- For example,
 -- > nCola personas 1
 -- "Sheldon"
 -- > nCola personas 52
@@ -41,7 +41,7 @@ import Text.CSV
 personas :: [String]
 personas = ["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"]
 
--- Solución recursiva
+-- Recursive solution
 nColaAux :: [String] -> [Int] -> [String]
 nColaAux (p:ps) (n:ns) = (replicate n p) ++ (nColaAux (ps++[p]) (ns++[2*n]))
 
@@ -49,7 +49,7 @@ nCola :: [String] -> Int -> String
 nCola ps n = cola !! (n-1) 
     where cola = nColaAux ps (replicate (length ps) 1)
 
--- Solución con cycle e iterate
+-- Solution with cycle and iterate
 nColaAux2 :: [String] -> [String]
 nColaAux2 ps = concat [ replicate i p | (p,i) <- zip (cycle ps) ns' ]
     where ns' = concat $ iterate (map (*2)) ns 
@@ -58,7 +58,7 @@ nColaAux2 ps = concat [ replicate i p | (p,i) <- zip (cycle ps) ns' ]
 nCola2 :: [String] -> Int -> String
 nCola2 ps n = nColaAux2 ps !! (n-1) 
 
--- Solución con solo recursividad
+-- Solution with recursion only
 nCola3 :: [String] -> Int -> String
 nCola3 ps n = 
     let p = head ps
@@ -67,13 +67,13 @@ nCola3 ps n =
         then ps !!(n-1)
         else nCola3 ((tail ps)++[p,p]) (n-1)
 
--- Solución con solo recursividad 2
+-- Solution with recursion only 2
 nCola4 :: [String] -> Int -> String
 nCola4 ps 1 = head ps
 nCola4 ps n = nCola4 ((tail ps)++[p,p]) (n-1)
     where p = head ps
 
--- Comparación de tiempos
+-- Time comparison
 -- *Main> nCola personas 10010 
 -- "Howard"
 -- (0.01 secs, 1,244,592 bytes)
@@ -88,27 +88,27 @@ nCola4 ps n = nCola4 ((tail ps)++[p,p]) (n-1)
 -- (1.92 secs, 2,227,369,880 bytes)
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 2 (2,5 puntos)
+-- Exercise 2 (2,5 puntos)
 
--- Definiremos un árbol genérico con el siguiente tipo de dato algebraico:
+-- will define a generic tree with the following type of algebraic data:
 
--- data Arbol a = N a [Arbol a] deriving Show
+-- it dates Arbol to = N to [Arbol to] deriving Show
 
--- a) Necesitamos marcar valores del árbol como eliminados. A continuación,
--- extiende la definición anterior para que un árbol también pueda ser
--- un nodo sin valor de tipo a asociado, pero con una lista de árboles.
--- Llama al constructor "R".
+-- to) Need to mark values of the tree like deleted. To continuation,
+-- extends the anterior definition so that a tree also can be
+-- a node without value of type to associated, but with a list of trees.
+-- Llama to the constructor "R".
 
 data Arbol a = N a [Arbol a] | R [Arbol a]
     deriving Show
 
--- b) Define la función (eliminaRama rs a), tal que dado un árbol genérico a y
--- una lista rs que representa una posible rama del árbol, devuelva el árbol
--- eliminando todas las repeticiones de dicha rama. La eliminación de un 
--- valor en el árbol se hace simplemente cambiando el constructor del nodo N
--- por R. Entendemos por rama una sucesión de elementos que están en el árbol,
--- siguiendo orden de jerarquía: es decir, el primer elemento es padre del segundo,
--- el segundo es padre del tercero, etc. Por ejemplo, supongamos el siguiente árbol:
+-- b) Defines the function (eliminaRama rs a), such that given a generic tree to and
+-- a ready rs that represents a possible branch of the tree, give the tree
+-- deleting all the repetitions of said branch. The elimination of a 
+-- value in the tree does  simply changing the constructor of the node N
+-- by R. We understand by branch a succession of elements that are in the tree,
+-- following order of hierarchy: that is to say, the first element is father of the second,
+-- the second is father of the third, etc. For example, suppose the following tree:
 --
 --        __5___ 
 --       |  |   |
@@ -116,7 +116,7 @@ data Arbol a = N a [Arbol a] | R [Arbol a]
 --       |    | | | |
 --       0    1 0 2 3
 -- 
--- Si eliminamos la rama [5,3,0], obtendríamos:
+-- If we delete the branch [5,3,0], would obtain:
 --
 --        __R___ 
 --       |  |   |
@@ -124,9 +124,9 @@ data Arbol a = N a [Arbol a] | R [Arbol a]
 --       |    | | | |
 --       R    1 0 2 3
 -- 
--- Sin embargo, al intentar eliminar la rama [6,7] obtenemos el árbol sin 
--- modificar, ya que tal rama no existe. Por último, al eliminar la rama [5,3],
--- tendríamos que eliminar todas las apariciones:
+-- However, when trying delete the branch [6,7] obtain the tree without 
+-- modifying, since such branch does not exist. Finally, to the delete the branch [5,3],
+-- would have to delete all the apparitions:
 --
 --        __R___ 
 --       |  |   |
@@ -134,11 +134,11 @@ data Arbol a = N a [Arbol a] | R [Arbol a]
 --       |    | | | |
 --       0    1 0 2 R
 --
--- Nota 1: Por simplicidad, puedes asumir que los nodos R del árbol de entrada
--- no forman parte de ninguna rama.
--- Nota 2: Si la rama es vacía, no se elimina ningún nodo en el árbol.
+-- Note 1: By simplicity, can assume that the nodes R of the tree of entrance
+-- do not form part of any branch.
+-- It note 2: If the branch is empty, does not delete  any node in the tree.
 --
--- Por ejemplo:
+-- For example:
 -- > eliminaRama [5,3,0] arbol1
 -- R [R [R []],N 2 [],N 5 [N 1 [],N 0 [],N 2 [],N 3 []]]
 -- > eliminaRama [5,3] arbol1  
@@ -173,27 +173,27 @@ esRamaInmediata _ _ = False
 -- -----------------------------------------------------------------------------
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 3 (2,5 puntos)
--- En redes neuronales, la función de pooling es muy importante. En este
--- ejercicio se pide realizar una implementación muy básica. En resumen, esta 
--- función recibe una matriz m, un tamaño de ventana v y una función f, y 
--- devuelve una matriz que es el resultado de aplicar f a las submatrices de
--- tamaño v x v (sin solapamiento) de la matriz m. Veámoslo con más detalle.
--- Específicamente, diremos que la función de pooling recibe:
---   * una matriz m cuadrada de tamaño n x n, con n >= 1. Si la matriz no es
---     cuadrada, entonces devuelve Nothing.
---   * un tamaño de ventana v. Como restricción, pediremos que v sea divisor 
---     de n, y v >= 1. Si no es así, la función devuelve Nothing. 
---   * una función de agregación f sobre listas, por ejemplo, suma, máximo, mínimo
---     media, etc.
--- La función de pooling funciona como sigue (ver el ejemplo de abajo):
---   * la matriz resultado tiene un tamaño de n' x n', con n' = n / v
---   * se forman ventanas (submatrices) de v x v de la matriz m, sin solapamiento.
---   * la matriz resultado tiene una posición por ventana, que corresponde al 
---     resultado de aplicar la función f a los elementos de la ventana 
---     correspondiente.
+-- Exercise 3 (2,5 puntos)
+-- In neural nets, the function of pooling is very important. In this
+-- exercise asks  make a very basic implementation. In round-up, this 
+-- function receives a matrix m, a size of window v and a function f, and 
+-- give a matrix that is the result to apply f to the submatrices of
+-- size v x v (sin solapamiento) of the matrix m. See it in more detail.
+-- Specifically, we will say that the function of pooling receives:
+--    a matrix m squared of size n x n, with n >= 1. If the matrix is not
+--     squared, then give Nothing.
+--    A size of window v. Like restriction, will ask that v was divisor 
+--     of n, and v >= 1. If it is not like this, the function give Nothing. 
+--    A function of aggregation f on lists, for example, sum, maximum, minimum
+--     half, etc.
+-- The function of pooling works as follows (ver el ejemplo de abajo):
+--    the matrix resulted has a size of n' x n', with n' = n / v
+--    form  windows (submatrices) of v x v of the matrix m, without solapamiento.
+--    The matrix resulted has a position by window, that corresponds to the 
+--     result to apply the function f to the elements of the corresponding 
+--     window.
 --
--- Para aclararlo, pongamos un ejemplo. Supongamos que n = 4, v = 2, y m es
+-- To clear it, put an example. We suppose that n = 4, v = 2, and m is
 --                                                
 --  ┌         ┐                                   
 --  │ 1 2 3 4 |                                  
@@ -202,7 +202,7 @@ esRamaInmediata _ _ = False
 --  │ 5 4 3 2 |                                  
 --  └         ┘                                  
 --
--- la divisón de la matriz con una ventana de 2x2 es:  
+-- the divisón of the matrix with a window of 2x2 is:  
 
 --  ┌     |     ┐ 
 --  │ 1 2 | 3 4 |  
@@ -212,18 +212,18 @@ esRamaInmediata _ _ = False
 --  │ 5 4 | 3 2 |  
 --  └     |     ┘ 
 -- 
--- Supongamos que f = maximo. Como los elementos de la primera ventana son [1,2,5,6],
--- el resultado de f es 6. Al final, el resultado es una matriz de 2x2 (ya que 
+-- we Suppose that f = maximo. Like the elements of the first window are [1,2.5,6],
+-- the result of f is 6. At the end, the result is a matrix of 2x2 (since 
 -- n=4, v=2, n/v = 2):
 --  ┌     ┐ 
 --  | 6 8 |
 --  | 9 7 |
 --  └     ┘
 -- 
--- Se pide definir la función (pooling m v f), donde m es la matriz de entrada,
--- v el tamaño de la ventana, y f la función de agregación. El resultado es un
--- Maybe Matriz, ya que si v no es divisor de n, ni mayor o igual que 1, y m 
--- no es cuadrada, entonces devuelve Nothing. Por ejemplo:
+-- it asks  define the function (pooling m v f), where m is the matrix of entrance,
+-- v the size of the window, and f the function of aggregation. The result is a
+-- Maybe Matrix, since if v is not divisor of n, neither main or the same that 1, and m 
+-- is not squared, then give Nothing. For example:
 
 type Matriz = Array (Int,Int) Float
 
@@ -249,7 +249,7 @@ mej2 = listArray ((1,1),(10,10)) [1..100]
 -- > pooling mej2 0 minimum                                     
 -- Nothing
 
--- NOTA: por simplicidad, puedes asumir que los índices de m comienzan en (1,1)
+-- It note: by simplicity, can assume that the indexes of m begin in (1,1)
 
 
 pooling :: Matriz -> Int -> ([Float] -> Float) -> Maybe Matriz
@@ -264,30 +264,30 @@ pooling m v f
 
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 4 (2,5 puntos)
+-- Exercise 4 (2,5 puntos)
 --
--- Años atrás, antes del boom de los datos, no existía un formato de 
--- almacenamiento estandarizado y casi cada programador definía su propio
--- formato de almacenamiento en modo texto. Para poder hacer uso de esos
--- datos históricos en los nuevos algoritmos de aprendizaje automático 
--- es necesario convertir esos formatos a un formato estandar como por
--- ejemplo CSV. 
+-- Years backwards, before the boom of the data, did not exist a format of 
+-- storage standardised and almost each programmer defined his own
+-- format of storage in way text. To be able to do use of these
+-- historical data in the new algorithms of automatic learning 
+-- is necessary to convert these formats to a format estandar as for example
+--  CSV. 
 --
--- En este ejercicio se pide realizar una función que convierta el fichero
--- notas.txt a un formato CSV válido usando como separador de columnas
--- la coma ",". Una vez convertido, guardar el resultado en "notas.csv"
--- y leer con el paquete Text.CSV mostrando por pantalla su contenido.
+-- In this exercise asks  make a function that convert the file
+-- note.txt To a format CSV valid using like separador of columns
+-- the comma ",". Once converted, save the result in "notes.csv"
+-- And read with the package Text.CSV Showing by screen his content.
 --
--- Resultado esperado en disco de notas.csv:
+-- Expected result on disk for Notes.csv:
 --
--- Nombre,Apellidos,Nota
+-- Name,Surnames,Note
 -- David,Martinez Rojas,7.5
 -- Juan,Perez Vera,6.4
 -- Manuel,Durán Veleño,4.5
 -- Miguel,Pereila Rodriguez,3.1
 -- Sandra,Sánchez Rojas,6.5 
 --
--- Salida por pantalla esperada tras la lectura con Test.CSV:
+-- Expected screen output after reading with Test.CSV:
 --
 -- "Nombre","Apellidos","Nota"
 -- "David","Martinez Rojas","7.5"
@@ -296,9 +296,9 @@ pooling m v f
 -- "Miguel","Pereila Rodriguez","3.1"
 -- "Sandra","Sánchez Rojas","6.5"
 --
--- Ayuda: la función intrecalate lleva a cabo la unión de una lista de cadenas
--- usando otra cadena que intercalará entre cada uno de los elementos de la 
--- cadena.
+-- Help: The function intrecalate carry the union of a list of chains
+-- using another chain that intercalará among each one of the elements of the 
+-- chain.
 --
 -- > intercalate "," ["uno", "dos", "tres"]
 -- "uno,dos,tres"

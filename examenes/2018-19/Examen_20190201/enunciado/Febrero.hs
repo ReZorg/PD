@@ -1,22 +1,22 @@
--- Programación Declarativa
--- Grado de Ingeniería Informática - Tecnologías Informáticas
--- Examen Febrero                                 1 de Febrero de 2019
+-- Declarative Programming
+-- Degree in Computer Engineering - Information Technologies
+-- February Exam                                  February 1, 2019
 -- -------------------------------------------------------------------
--- Apellidos:
--- Nombre:
+-- Surnames:
+-- Name:
 -- -------------------------------------------------------------------
--- AVISOS IMPORTANTES
--- · 1. Antes de continuar, cambie el nombre de este archivo por:
+-- IMPORTANT NOTICES
+-- · 1. Before continuing, change the name of this file to:
 --                   Febrero_<uvus>.hs
---   donde <uvus> debe ser su usuario virtual.
--- · 2. Escriba la solución de cada ejercicio en el hueco reservado para
---   ello.
--- · 3. Asegúrese de utilizar correctamente el nombre y el tipo indicado
---   para cada función solicitada. Puede añadir tantas funciones
---   auxiliares (incluyendo el tipo adecuadamente) como necesite,
---   describiendo su objetivo.
---   4. Se recomienda entregar un fichero que cargue correctamente,
---   dejando comentado todo código con errores.
+--   where <uvus> must be your virtual username.
+-- · 2. Write the solution to each exercise in the space reserved for
+--   it.
+-- · 3. Make sure you correctly use the name and type indicated
+--   for each requested function. You may add as many helper
+--   functions (including the type properly) as you need,
+--   describing their purpose.
+--   4. It is recommended to submit a file that loads correctly,
+--   leaving all code with errors commented out.
 -- -------------------------------------------------------------------
 
 {-# LANGUAGE OverloadedStrings #-}
@@ -32,9 +32,9 @@ import Text.CSV
 import Data.Matrix
 
 -- ---------------------------------------------------------------------
--- Ejercicio 1. [1 pto]
--- Definir la función largas tal que (largas xs) es la
--- lista de las palabras más largas de la lista xs. Por ejemplo,
+-- Exercise 1. [1 point]
+-- Define the function largas such that (largas xs) is the
+-- list of the longest words in list xs. For example,
 --    largas ["no", "tengo", "claro", "que", "haga", "sol", "estos", "dias"]
 --      == ["tengo", "claro", "estos"]
 -- ---------------------------------------------------------------------
@@ -42,36 +42,36 @@ import Data.Matrix
 largas = undefined
 
 -- -------------------------------------------------------------------
--- Ejercicio 2. [1 pto]
--- Desarrollar una funcion principal (juego) con un programa
--- interactivo basado en CodeWorld, que inicialmente pinte un círculo
--- rojo en la parte izquierda de la pantalla y un cuadrado verde
--- en la parte derecha.
--- A partir de ahí, si pulsamos en la flecha izquierda deberá aumentar
--- el tamaño del objeto de la izquierda y disminuir el de la derecha,
--- y si pulsamos la derecha todo lo contrario; en cualquiera de los
--- casos, si se supera un tamaño que haga que el objeto no quepa
--- en la pantalla, la acción debería dejar el estado tal cual.
+-- Exercise 2. [1 point]
+-- Develop a main function (juego) with an
+-- interactive program based on CodeWorld, which initially draws a red circle
+-- on the left side of the screen and a green square
+-- on the right side.
+-- From there, if we press the left arrow it should increase
+-- the size of the object on the left and decrease the one on the right,
+-- and if we press the right arrow, the opposite; in any of the
+-- cases, if a size is exceeded that makes the object not fit
+-- on the screen, the action should leave the state unchanged.
 -- -------------------------------------------------------------------
 
 juego = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 3. [1,5 ptos]
--- Se considera la funcion aplicaNSats tal que (aplicaNSats n f ps xs)
--- es la lista obtenida aplicándole la función f a los n primeros
--- elementos de xs que cumplan alguno de los predicados de ps.
--- Por ejemplo:
+-- Exercise 3. [1.5 points]
+-- Consider the function aplicaNSats such that (aplicaNSats n f ps xs)
+-- is the list obtained by applying function f to the first n
+-- elements of xs that satisfy one of the predicates in ps.
+-- For example:
 --    aplicaNSats 4 (2+) [even,\x -> mod x 5 == 0]  [1..10]
 --      ==  [4,6,7,8]
--- Se pide, definir la función de las tres formas siguientes:
--- 1. Usando listas por comprensión
--- 2. Usando funciones como map, filter, foldr, foldl, all, any, etc.
--- 3. Usando recursión
+-- It is requested to define the function in the following three ways:
+-- 1. Using list comprehensions
+-- 2. Using functions such as map, filter, foldr, foldl, all, any, etc.
+-- 3. Using recursion
 --
---    ** Nota: si no puede resolver este apartado,
---       intente al menos realizar una versión simplificada del problema,
---       y se valorará parcialmente el ejercicio.
+--    ** Note: if you cannot solve this part,
+--       at least try to make a simplified version of the problem,
+--       and the exercise will be partially graded.
 -- ---------------------------------------------------------------------
 
 aplicaNSats1 = undefined
@@ -81,11 +81,11 @@ aplicaNSats2 = undefined
 aplicaNSats3 = undefined
 
 -- -------------------------------------------------------------------
--- Ejercicio 4. [1 pto]
--- Definir la función extremosCola, tal que (extremosCola c) devuelve
--- un par de elementos con el mínimo y el máximo de la misma, tras
--- recorrerla una sola vez y sin pasar a lista. Si la cola tiene menos
--- de dos elementos debería devolver un error apropiado. Por ejemplo, 
+-- Exercise 4. [1 point]
+-- Define the function extremosCola, such that (extremosCola c) returns
+-- a pair of elements with its minimum and maximum, after
+-- traversing it only once and without converting it to a list. If the queue has fewer
+-- than two elements it should return an appropriate error. For example,
 --    extremosCola c4 == (-1,10)
 --    extremosCola c7 == (1,20)
 --    extremosCola c6 == (3,3)
@@ -103,15 +103,15 @@ c7 = foldr C.inserta C.vacia ([1..10]++[20,19..10])
 extremosCola = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 5. [1,5 ptos]
--- Se denomina matriz dispersa aquella cuyos elementos son 
--- mayoritariamente nulos. La representación de matrices dispersas se
--- suele comprimir en una forma densa, donde se dejan en las filas
--- tan solo los elementos no nulos dispuestos en un par (columna,valor).
--- Puesto que en algunas filas pueden haber más elementos que en otras,
--- aquellas filas con menos elementos se rellenan con (0,0.0).
--- A continuación se muestran dos ejemplos de una matriz dispersa y su
--- representación densa.
+-- Exercise 5. [1.5 points]
+-- A sparse matrix is one whose elements are
+-- mostly zero. The representation of sparse matrices is
+-- usually compressed into a dense form, where only the nonzero elements
+-- arranged in a pair (column,value) are left in the rows.
+-- Since some rows may have more elements than others,
+-- those rows with fewer elements are filled with (0,0.0).
+-- Below are two examples of a sparse matrix and its
+-- dense representation.
 
 matrizEjDispersa :: Matrix Double
 matrizEjDispersa = fromLists [[0.0,0.0,2.1],[1.6,0.0,-2.5],[0.5,0.0,0.0]]
@@ -119,19 +119,19 @@ matrizEjDispersa = fromLists [[0.0,0.0,2.1],[1.6,0.0,-2.5],[0.5,0.0,0.0]]
 matrizEjDensa :: Matrix (Int,Double)
 matrizEjDensa = fromLists [[(3,2.1),(0,0.0)],[(1,1.6),(3,-2.5)],[(1,0.5),(0,0.0)]]
 
--- Ejercicio 5.1. Definir la función (coefDispersion m), tal que reciba
--- una matriz m en representación dispersa, y devuelva el coeficiente
--- de dispersión calculado como número de elementos nulos entre número
--- de no nulos. Por ejemplo,
+-- Exercise 5.1. Define the function (coefDispersion m), such that it receives
+-- a matrix m in sparse representation, and returns the dispersion coefficient
+-- calculated as the number of zero elements divided by the number
+-- of nonzero elements. For example,
 --   coefDispersion matrizEjDispersa == 1.25
 
 coefDispersion = undefined
      
--- Ejercicio 5.2. Definir la función (matrizDispersa m), que reciba
--- una matriz m en representación densa, y devuelva su correspondiente
--- en dispersa. Indicación: se puede emplear como número de columnas
--- la mayor columna que aparezca en los pares de la representación densa.
--- Por ejemplo,
+-- Exercise 5.2. Define the function (matrizDispersa m), which receives
+-- a matrix m in dense representation, and returns its corresponding
+-- sparse representation. Hint: as the number of columns,
+-- use the largest column appearing in the pairs of the dense representation.
+-- For example,
 --   matrizDispersa matrizEjDensa == matrizEjDispersa
 
 matrizDispersa = undefined
@@ -139,11 +139,11 @@ matrizDispersa = undefined
 -- ---------------------------------------------------------------------
 
 -- ---------------------------------------------------------------------
--- Ejercicio 6. [2,5 ptos]
--- Un árbol Trie es un árbol de búsqueda donde los nodos internos codifican
--- un alfabeto de Claves y las hojas contienen Valores asociados
--- a las Claves. A continuación se muestra un ejemplo, donde las Claves
--- son cadenas de caracteres y los Valores son enteros.
+-- Exercise 6. [2.5 points]
+-- A Trie tree is a search tree where the internal nodes encode
+-- an alphabet of Keys and the leaves contain Values associated
+-- with the Keys. Below is an example, where the Keys
+-- are character strings and the Values are integers.
 --
 --                              ""
 --                             /  \
@@ -159,26 +159,26 @@ matrizDispersa = undefined
 --                              / \
 --                          67321 62375
 --
--- el árbol de ejemplo almacena los teléfonos de los siguientes contactos:
+-- the example tree stores the phone numbers of the following contacts:
 --  "JUAN" -> 68972, "JULIA" -> 67321, "JULIA" -> 62375, "IVAN" -> 69712
--- Nótese que hay dos nombres repetidos ("JULIA"). También nótese que las
--- claves se distribuyen en los nodos internos, de tal forma que cada nodo
--- tiene asociado tan solo un carácter en forma de cadena.
+-- Notice that there are two repeated names ("JULIA"). Also notice that the
+-- keys are distributed in the internal nodes, such that each node
+-- has only one character associated in the form of a string.
 
--- Ejercicio 6.1. Definir el tipo de datos para un árbol Trie polimórfico,
--- donde los nodos internos almacenen un elemento de un tipo Clave y puedan
--- tener más de un hijo, y las hojas almacenen tan solo un Valor. El árbol
--- debe ser imprimible. Además, definir a continuación un sinónimo de árbol
--- Trie que emplee cadenas como Claves y enteros como Valores.
+-- Exercise 6.1. Define the data type for a polymorphic Trie tree,
+-- where the internal nodes store an element of a Key type and can
+-- have more than one child, and the leaves store only one Value. The tree
+-- must be printable. In addition, define below a synonym of a
+-- Trie tree that uses strings as Keys and integers as Values.
 
 
 
--- Ejercicio 6.2. Definir las funciones siguientes:
---    (a) (arbolTrieVacio), que devuelva un árbol con solo el nodo raíz,
---         el cual tiene como clave la cadena vacía ("") y ningún hijo.
---    (b) (clave n), que devuelva la clave asociado al nodo n. Si n es
---         una hoja, devolver la cadena vacía "".
---    (c) (esHoja n), que indique con un booleano si el nodo n es una hoja.
+-- Exercise 6.2. Define the following functions:
+--    (a) (arbolTrieVacio), which returns a tree with only the root node,
+--         which has the empty string ("") as key and no children.
+--    (b) (clave n), which returns the key associated with node n. If n is
+--         a leaf, return the empty string "".
+--    (c) (esHoja n), which indicates with a boolean whether node n is a leaf.
 
 arbolTrieVacio = undefined
 
@@ -186,51 +186,51 @@ clave = undefined
 
 esHoja = undefined
 
--- Ejercicio 6.3. Definir la función (siguienteNodo hs s), que reciba una
--- lista de árboles as y una cadena de un solo carácter s, y devuelva un
--- par tal que:
---  1. El primer elemento del par será el nodo h de la lista as tal que su
---     clave coincida con s. Si tal nodo no existe, entonces será un nodo
---     nuevo con clave igual a s y sin hijos.
---  2. El segundo elemento del par serán todos los nodos de hs cuya clave no
---     coincidan con s.
+-- Exercise 6.3. Define the function (siguienteNodo hs s), which receives a
+-- list of trees as and a one-character string s, and returns a
+-- pair such that:
+--  1. The first element of the pair will be the node h from list as whose
+--     key matches s. If such a node does not exist, then it will be a
+--     new node with key equal to s and no children.
+--  2. The second element of the pair will be all the nodes in hs whose key does not
+--     match s.
 
 siguienteNodo = undefined
 
--- Ejercicio 6.4. Definir la función (insertaEnArbol a p ), que reciba un
--- árbol Trie, a, y un par, p, con (clave, valor), siendo clave una cadena
--- de caracteres y valor un entero. La función debe devolver el árbol a
--- incluyendo el nuevo par (clave,valor).
+-- Exercise 6.4. Define the function (insertaEnArbol a p ), which receives a
+-- Trie tree, a, and a pair, p, with (key, value), where key is a character
+-- string and value an integer. The function must return tree a
+-- including the new pair (key,value).
 
 insertaEnArbol = undefined
 
--- Ejercicio 6.5. Definir la función (insertaEnArbol a cs), que reciba un
--- árbol Trie, a, y una lista, cs, de pares (clave, valor), y devuelva un
--- árbol con todos los elementos insertados. Por ejemplo, lo siguiente
--- debería devolver el árbol ilustrado en el enunciado.
+-- Exercise 6.5. Define the function (insertaEnArbol a cs), which receives a
+-- Trie tree, a, and a list, cs, of pairs (key, value), and returns a
+-- tree with all elements inserted. For example, the following
+-- should return the tree illustrated in the statement.
 --    insertaEnArbol arbolTrieVacio
 --        [("IVAN",69712),("JULIA",62375),("JULIA",67321),("JUAN",68972)]
 
 insertaElemsEnArbol = undefined
 
--- Ejercicio 6.6. Definir la (consultaValor a cs), tal que reciba un árbol
--- Trie a y una Clave cs, y devuelva los valores asociados a ella. Si la
--- clave no está en el árbol o no tiene asociados valores, devolver la
--- lista vacía.
+-- Exercise 6.6. Define (consultaValor a cs), such that it receives a
+-- Trie tree a and a Key cs, and returns the values associated with it. If the
+-- key is not in the tree or has no associated values, return the
+-- empty list.
 
 consultaValor = undefined
 
 -- ---------------------------------------------------------------------
 
 -- -------------------------------------------------------------------
--- Ejercicio 7. [1,5 ptos]
--- Se desea representar una estructura que almacena datos sobre
--- categorías deportivas diferenciadas por la web de una importante
--- cadena especializada en deportes. En relación con esto:
+-- Exercise 7. [1.5 points]
+-- We want to represent a structure that stores data about
+-- sports categories differentiated by the website of an important
+-- chain specializing in sports. Regarding this:
 
--- Ejercicio 7.1. Defina, con sintaxis de registro, los tipos (nuevos
--- y sinónimos) adecuados para almacenar una estructura JSON como la
--- siguiente:
+-- Exercise 7.1. Define, with record syntax, the appropriate types (new
+-- and synonyms) to store a JSON structure like the
+-- following:
 -- {
 --   "dataList": [
 --      {
@@ -246,21 +246,21 @@ consultaValor = undefined
 
 
 
--- Ejercicio 7.2. Realice un programa principal, (deportes), que:
---    a) Importe el archivo "sports.json" a un elemento
---       del tipo anterior
---    b) Imprima por pantalla un mensaje indicando el número
---       de deportes contenidos en la estructura,
---       calculado a partir de la misma. Debe quedar algo como:
+-- Exercise 7.2. Write a main program, (deportes), that:
+--    a) Imports the file "sports.json" into an element
+--       of the previous type
+--    b) Prints on screen a message indicating the number
+--       of sports contained in the structure,
+--       calculated from it. It should look something like:
 
---          Hay un total de 251 deportes
+--          There are a total of 251 sports
 
---    c) Para cada uno de los 10 primeros deportes,
---       imprima por pantalla su número de orden y su nombre,
---       seguido de su radio (la mitad de su diámetro):
---       Debe quedar algo como:
+--    c) For each of the first 10 sports,
+--       print on screen its ordinal number and its name,
+--       followed by its radius (half of its diameter):
+--       It should look something like:
 
---          Los nombres de los 10 primeros son los siguientes:
+--          The names of the first 10 are the following:
 --          1: "Sledding"
 --          2: "Hiking"
 --          3: "Snow hiking"
@@ -272,10 +272,10 @@ consultaValor = undefined
 --          9: "Cycling"
 --          10: "Horseback western riding"
 --
---    ** Nota: si no puede resolver este apartado,
---       intente al menos realizar un tratamiento básico con
---       la estructura importada,
---       y se valorará parcialmente el ejercicio.
+--    ** Note: if you cannot solve this part,
+--       at least try to perform basic processing with
+--       the imported structure,
+--       and the exercise will be partially graded.
 -- -------------------------------------------------------------------
 
 deportes = undefined

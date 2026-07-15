@@ -1,22 +1,22 @@
--- Programación Declarativa
--- Grado de Ingeniería Informática - Tecnologías Informáticas
--- Examen Septiembre                          12 de Septiembre de 2019
+-- Declarative Programming
+-- Degree in Computer Engineering - Information Technologies
+-- September Exam                          September 12, 2019
 -- -------------------------------------------------------------------
--- Apellidos:
--- Nombre:
+-- Surnames:
+-- Name:
 -- -------------------------------------------------------------------
--- AVISOS IMPORTANTES
--- · 1. Antes de continuar, cambie el nombre de este archivo por:
+-- IMPORTANT NOTICES
+-- · 1. Before continuing, change the name of this file to:
 --                   Septiembre_<uvus>.hs
---   donde <uvus> debe ser su usuario virtual.
--- · 2. Escriba la solución de cada ejercicio en el hueco reservado para
---   ello.
--- · 3. Asegúrese de utilizar correctamente el nombre y el tipo indicado
---   para cada función solicitada. Puede añadir tantas funciones
---   auxiliares (incluyendo el tipo adecuadamente) como necesite,
---   describiendo su objetivo.
--- · 4. Se recomienda entregar un fichero que cargue correctamente,
---   dejando comentado todo código con errores.
+--   where <uvus> must be your virtual username.
+-- · 2. Write the solution to each exercise in the space reserved for
+--   it.
+-- · 3. Make sure you correctly use the name and type indicated
+--   for each requested function. You may add as many helper
+--   functions (including the type properly) as you need,
+--   describing their purpose.
+-- · 4. It is recommended to submit a file that loads correctly,
+--   leaving all code with errors commented out.
 -- -------------------------------------------------------------------
 
 {-# LANGUAGE OverloadedStrings #-}
@@ -29,75 +29,75 @@ import Text.CSV
 import Data.Matrix
 
 -- ---------------------------------------------------------------------
--- Ejercicio 1. [2 ptos]
+-- Exercise 1. [2 points]
 -- ---------------------------------------------------------------------
--- Se considera la función multFuncPrimerosNValidos
+-- Consider the function multFuncPrimerosNValidos
 -- :: (Num a, Num b) => Int -> (a -> b) -> (a -> Bool) -> [a] -> b
--- tal que (multFuncPrimerosNValidos n f p xs) devuelve la suma de los
--- resultados de aplicar la función f a los primeros n elementos de xs
--- que cumplen el predicado p.
+-- such that (multFuncPrimerosNValidos n f p xs) returns the sum of the
+-- results of applying function f to the first n elements of xs
+-- that satisfy predicate p.
 --
--- Por ejemplo:
+-- For example:
 --    multFuncPrimerosNValidos_1 2 (4+) even [1..7]  => 48
 -- 
--- (Los dos primeros números pares de [1..7] son 2 y 4,
---  que al aplicarle (4+) quedan como 6 y 8, cuyo producto es 48)
+-- (The first two even numbers in [1..7] are 2 and 4,
+--  which after applying (4+) become 6 and 8, whose product is 48)
 --
--- Se pide definir la función:
--- 1. usando map y filter,
--- 2. por recursión,
--- 3. por recursión con acumulador,
--- 4. por plegado (a izquierda o derecha).
+-- It is requested to define the function:
+-- 1. using map and filter,
+-- 2. by recursion,
+-- 3. by recursion with an accumulator,
+-- 4. by folding (left or right).
 -- ---------------------------------------------------------------------
 
 -- ---------------------------------------------------------------------
--- Ejercicio 2. [1 pto]
+-- Exercise 2. [1 point]
 -- ---------------------------------------------------------------------
--- Desarrolle una animación usando CodeWorld, de modo que la escena
--- incluya los ejes de coordenadas, un rectángulo inmóvil con grosor,
--- y un círculo relleno de otro color que vaya girando alrededor
--- del rectángulo estático.
+-- Develop an animation using CodeWorld, so that the scene
+-- includes the coordinate axes, a stationary thick rectangle,
+-- and a filled circle of another color that rotates around
+-- the static rectangle.
 -- ---------------------------------------------------------------------
 
 -- ---------------------------------------------------------------------
--- Ejercicio 3. [2 ptos]
+-- Exercise 3. [2 points]
 -- ---------------------------------------------------------------------
--- Desarrolle un programa principal que lea del archivo pasado
--- como argumento (si no se le pasa ninguno, de "atp_players.csv"),
--- lo parsee y posteriormente realice lo siguiente con las filas válidas
--- delfichero:
+-- Develop a main program that reads from the file passed
+-- as an argument (if none is passed, from "atp_players.csv"),
+-- parses it and then does the following with the valid rows
+-- of the file:
 --
--- a) Imprimir por pantalla el número de jugadores de que consta el archivo.
---    A continuación, imprimalos nombres de los campos contenidos en el
---    archivo, de la siguiente forma:
+-- a) Print on screen the number of players in the file.
+--    Next, print the names of the fields contained in the
+--    file, as follows:
 --
---    "ID" (campo 1)
---    "nombre" (campo 2)
+--    "ID" (field 1)
+--    "name" (field 2)
 --    ...
 --
--- b) Procesar los registros contenidos, de forma quevaya seleccionando
---    aquellos que sean españoles (ESP), zurdos (L) y nacidos en los 80,
---    y para cada uno de ellos imprima el nombre, apellidos y
---    fecha de nacimiento.
+-- b) Process the records, selecting
+--    those that are Spanish (ESP), left-handed (L), and born in the 80s,
+--    and for each of them print the name, surname, and
+--    date of birth.
 -- ---------------------------------------------------------------------
 
 -- ---------------------------------------------------------------------
--- Ejercicio 4. [1,5 ptos]
+-- Exercise 4. [1,5 points]
 -- ---------------------------------------------------------------------
--- La sucesión generalizada de Fibonacci de grado N
--- (N >= 1) se construye comenzando con el número 1 y calculando el
--- resto de términos como la suma de los N términos anteriores (si
--- existen). Por ejemplo,
--- + la sucesión generalizada de Fibonacci de grado 2 es:
+-- The generalized Fibonacci sequence of degree N
+-- (N >= 1) is built starting with number 1 and computing the
+-- rest of the terms as the sum of the previous N terms (if
+-- they exist). For example,
+-- + the generalized Fibonacci sequence of degree 2 is:
 --   1, 1, 2, 3, 5, 8, 13, 21, 34, 55
--- + la sucesión generalizada de Fibonacci de grado 4 es:
+-- + the generalized Fibonacci sequence of degree 4 is:
 --   1, 1, 2, 4, 8, 15, 29, 56, 108, 208
--- + la sucesión generalizada de Fibonacci de grado 6 es:
+-- + the generalized Fibonacci sequence of degree 6 is:
 --   1, 1, 2, 4, 8, 16, 32, 63, 125, 248
--- Defina la función (fibPila n k), que devuelve una pila con los
--- términos de la sucesión de Fibonacci de grado n menores que k.
--- Se pide usar sólo el TAD de Pila (no se permite el uso de listas).
--- Por ejemplo:
+-- Define the function (fibPila n k), which returns a stack with the
+-- terms of the Fibonacci sequence of degree n that are less than k.
+-- It is requested to use only the Stack ADT (lists are not allowed).
+-- For example:
 -- λ> fibPila 6 100
 --   63|32|16|8|4|2|1|1|-
 -- λ> fibPila 6 200
@@ -107,17 +107,17 @@ import Data.Matrix
 -- ---------------------------------------------------------------------
 
 -- ---------------------------------------------------------------------
--- Ejercicio 5. [1,5 ptos]
+-- Exercise 5. [1,5 points]
 -- ---------------------------------------------------------------------
--- Dada la siguiente definición de árbol mediante listas 
+-- Given the following tree definition using lists
 --
 data Arbol = N Int [Arbol]
   deriving (Eq, Show)
 --
--- defina la función (aumentaNiveles a), tal que expanda el árbol 'a'
--- añadiendo un nuevo hijo a cada nodo, cuyo valor es el resultado de
--- la suma de sus hermanos más el padre. A continuación se muestran
--- dos ejemplos, visualmente y evaluados en código:
+-- define the function (aumentaNiveles a), such that it expands tree 'a'
+-- by adding a new child to each node, whose value is the result of
+-- the sum of its siblings plus the parent. Two examples are shown
+-- below, visually and evaluated in code:
 --
 -- Ej.1:    1         1          Ej.2:          1             1
 --          |  ==>   / \                       / \    ==>    /|\
@@ -133,50 +133,50 @@ data Arbol = N Int [Arbol]
 -- ---------------------------------------------------------------------
 
 -- ---------------------------------------------------------------------
--- Ejercicio 6. [1 pto]
+-- Exercise 6. [1 point]
 -- ---------------------------------------------------------------------
--- Definir las siguientes funciones y tipos de datos:
----   * Definir el tipo 'Binario', tal que nos permita representar un
---      número binario mediante enteros. Debe poder mostrarse por pantalla.
---      Ver los ejemplos de las funciones para conocer los constructores.
---    * Definir la función (int2binario n), por ejemplo:
+-- Define the following functions and data types:
+---   * Define the type 'Binario', such that it allows us to represent a
+--      binary number using integers. It must be displayable on screen.
+--      See the function examples to know the constructors.
+--    * Define the function (int2binario n), for example:
 --       λ> int2binario 1  ==   B 1 BFin
 --       λ> int2binario 110 ==  B 1 (B 1 (B 0 BFin))
---       λ> int2binario 121 ==  *** Exception: El valor de entrada no es binario
---    * Definir la función (binario2int b), por ejemplo:
+--       λ> int2binario 121 ==  *** Exception: The input value is not binary
+--    * Define the function (binario2int b), for example:
 --       λ> binario2int (B 1 (B 1 (B 0 BFin))) == 110
 --       λ> binario2int (B 0 (B 1 (B 0 BFin))) == 10
 -- ---------------------------------------------------------------------
 
 -- ---------------------------------------------------------------------
--- Ejercicio 7. [1 pto]
+-- Exercise 6. [1 point]
 -- ---------------------------------------------------------------------
--- Algunos algoritmos de compresión de imágenes hacen uso de los planos
--- de bits, o bitplanes. Sea una matriz m de números en binario, los
--- bitplanes son las matrices de bits correspondientes al bit n-ésimo de
--- cada elemento en m. Es decir, la matriz con el primer bit de todos los
--- elementos es el primer bitplane, la matriz con el segundo bit de todos
--- los elementos es el segundo bitplane, ... Supongamos una representación
--- little-endian (el bit menos significativo (en la posición 1) es el último,
--- el bit 2 es el antepenúltimo, etc.). Por ejemplo, los bitplanes de la matriz
+-- Some image compression algorithms make use of bit planes,
+-- or bitplanes. Given a matrix m of numbers in binary, the
+-- bitplanes are the bit matrices corresponding to the n-th bit of
+-- each element in m. That is, the matrix with the first bit of all
+-- elements is the first bitplane, the matrix with the second bit of all
+-- elements is the second bitplane, ... Assume a little-endian
+-- representation (the least significant bit (in position 1) is the last one,
+-- bit 2 is the third-to-last, etc.). For example, the bitplanes of matrix
 --  ┌             ┐
 --  │ 101   1  10 │
 --  │   0  11 100 │
 --  │  10 110   1 │
 --  └             ┘
--- es la lista de matrices siguiente (del tercer bitplane al primero):
+-- is the following list of matrices (from the third bitplane to the first):
 --  ┌       ┐   ┌       ┐   ┌       ┐
 --  │ 1 0 0 │   │ 0 0 1 │   │ 1 1 0 │
 --  │ 0 0 1 │   │ 0 1 0 │   │ 0 1 0 │
 --  │ 0 1 0 │   │ 1 1 0 │   │ 0 0 1 │
 --  └       ┘ , └       ┘ , └       ┘
 --
--- Defina la función (bitplanes m), tal que recibe una matriz
--- de números en binario (por simplicidad de tipo Int, asuma que solo
--- contiene 0s y 1s), y devuelve una lista de matrices con los bitplanes
--- desde el más significativo (el '1' más significativo de todos los
--- elementos de la matriz) hasta el menos significativo. La siguiente
--- matriz de ejemplo corresponde al anterior.
+-- Define the function (bitplanes m), such that it receives a matrix
+-- of numbers in binary (for type simplicity, assume Int and that it only
+-- contains 0s and 1s), and returns a list of matrices with the bitplanes
+-- from the most significant one (the most significant '1' of all the
+-- elements in the matrix) to the least significant one. The following
+-- example matrix corresponds to the previous one.
 matrizEj :: Matrix Int
 matrizEj = fromLists [[101, 1, 10], [0, 11, 100], [10, 110, 1]]
 -- ---------------------------------------------------------------------

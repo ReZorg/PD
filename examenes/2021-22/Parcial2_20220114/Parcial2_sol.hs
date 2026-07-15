@@ -1,10 +1,10 @@
 -- -----------------------------------------------------------------------------
--- Programación Declarativa 2021/22
--- Grado de Ingeniería Informática - Tecnologías Informáticas
--- Parcial 2                                                 14 de Enero de 2022
+-- Declarative Programming 2021/22
+-- Degree in Computer Engineering - Information Technologies
+-- Midterm 2                                                 January 14, 2022
 -- -----------------------------------------------------------------------------
--- Apellidos:
--- Nombre:
+-- Surnames:
+-- Name:
 -- UVUS:
 -- -----------------------------------------------------------------------------
 
@@ -16,18 +16,18 @@ import Control.Exception (catch, SomeException)
 import PilaConListas
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 1.1 (2,5 puntos)
--- Dada la siguiente definición de árbol binario
+-- Exercise 1.1 (2,5 puntos)
+-- Given the following definition of binary tree
 
 data Arbol a = H a | N (Arbol a) a (Arbol a)
   deriving Show
 
--- Define la función (dropWhileArbol a p), tal que reciba un árbol a, una
--- propiedad p, y devuelva una lista de árboles (es decir, un bosque). Este
--- bosque lo conforman aquellos subárboles del árbol a que queden tras eliminar
--- nodos, empezando por la raíz, mientras cumplan con la propiedad p. El
--- comportamiento es similar al dropWhile para listas, se dejará de eliminar
--- nodos cuando se encuentre alguno que no cumpla con la propiedad. Por ejemplo: 
+-- Defines the function (dropWhileArbol a p), such that receive a tree to, a
+-- property p, and give a list of trees (es decir, un bosque). This
+-- forest conform it those subárboles of the tree to that they remain after delete
+-- nodes, beginning by the root, while they fulfil with the property p. The
+-- behaviour is similar to the dropWhile for lists, will leave  of delete
+-- nodes when it find  any that do not fulfil with the property. For example: 
 -- 
 --                3
 --              /   \
@@ -37,7 +37,7 @@ data Arbol a = H a | N (Arbol a) a (Arbol a)
 --          / \                              / \
 --         0  -3                            0  -3
 --
--- Más ejemplos:
+-- Dwell examples:
 -- λ> dropWhileArbol (>2) ejArbol
 -- [N (H 0) 2 (H (-3)),H 1,H (-2)]
 -- λ> dropWhileArbol (>3) ejArbol
@@ -55,23 +55,23 @@ dropWhileArbol p (H x) | (not.p) x = [H x]
 dropWhileArbol p a@(N i x d) | (not.p) x = [a]
                              | otherwise = (dropWhileArbol p i) ++ (dropWhileArbol p d)
 
--- Ejercicio 1.2 (1 punto)
--- En la imagen adjunta al examen hay un ejemplo de un árbol rojo-negro
--- (Red-Black tree, en inglés). En estos árboles, los nodos pueden ser Black
--- (negros) o Red (rojos). Los nodos hoja no contienen valores. Se cumple que
--- la raíz y las hojas son Black, y todo nodo Red siempre debe tener como hijos
--- nodos Black. Se pide:
---   a) Definir un tipo algebraico para representar este tipo de árbol. Hazlo
---   parametrizado de tal forma que el tipo de los valores en el árbol pueda
---   ser cualquiera.
---   b) Usando tu nuevo tipo algebraico, define el ejemplo que hay en la imagen
---   adjunta.
+-- Exercise 1.2 (1 punto)
+-- In the image attaches to the examination there is an example of a red tree-black
+-- (Red-Black tree, en inglés). In these trees, the nodes can be Black
+-- (negros) or Net (rojos). The nodes leaf do not contain values. It fulfils  that
+-- the root and the leaves are Black, and all node Net always has to have like children
+-- nodes Black. It asks:
+--   to) Define an algebraic type to represent this type of tree. Do it
+--   parametrizado of such form that the type of the values in the tree can
+--   be any one.
+--   b) Using your new algebraic type, defines the example that there is in the image
+--   attaches.
 
 data RedBlackTree a = Black a (RedBlackTree a) (RedBlackTree a)
                       | Red a (RedBlackTree a) (RedBlackTree a)
                       | Nil
 
--- Otra solución
+-- Another solution
 data RNNodo = Rojo | Negro
 data ArbolRojoNegro a = Nodo RNNodo a (ArbolRojoNegro a) (ArbolRojoNegro a)
                       | Hoja
@@ -83,25 +83,25 @@ ejArbolRN = (Black 11 (Red 2 (Black 1 Nil Nil) (Black 7 (Red 5 Nil Nil) (Red 8 N
 
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 2.1 (2,5 puntos)
--- Softmax es una operación que se utiliza comúnmente en machine learning. Esta
--- función recibe un vector z como entrada, de dimensión K, y devuelve otro
--- vector de dimensión K donde los valores están normalizados. En concreto, el
--- valor en la posición j se calcula como:
+-- Exercise 2.1 (2,5 puntos)
+-- Softmax is an operation that uses  commonly in machine learning. This
+-- function receives a vector z like entrance, of dimension K, and give another
+-- vector of dimension K where the values are normalised. In concrete, the
+-- value in the position j calculates  eat:
 --
---                e^(z[j]) / (sumatorio{k=1..K} e^(z[k]))
+--                and^(z[j]) / (sumatorio{k=1..K} e^(z[k]))
 --
--- Por ejemplo, el vector [0.1,0.2,0.9,0.5] se transformaría a
+-- For example, the vector [0.1,0.2,0.9,0.5] would transform  to
 -- [0.17174646,0.18980919,0.38222876,0.2562156]. En concreto, el valor en la
--- primera posición es: e^0.1 / (e^0.1+e^0.2+e^0.9+e^0.5) = 0.17174646, en la
--- segunda posición es: e^0.2 / (e^0.1+e^0.2+e^0.9+e^0.5) = 0.18980919, ...
+-- first position is: and^0.1 / (e^0.1+e^0.2+e^0.9+e^0.5) = 0.17174646, in the
+-- second position is: and^0.2 / (e^0.1+e^0.2+e^0.9+e^0.5) = 0.18980919,...
 
--- Define la función (softmax p) tal que reciba una matriz p de dos
--- dimensiones, y devuelva el resultado de aplicar la operación softmax a cada
--- columna de la matriz.
--- Nota 1: en Haskell, el número e se puede aproximar con (exp 1)
--- Nota 2: puedes asumir que el índice de la matriz empieza por 1
--- Por ejemplo,
+-- It defines the function (softmax p) such that receive a matrix p of two
+-- dimensions, and give the result to apply the operation softmax to each
+-- column of the matrix.
+-- It note 1: in Haskell, the number and can approximate  with (exp 1)
+-- Note 2: you can assume that the index of the matrix begins by 1
+-- For example,
 -- λ> elems $ softmax ejm1
 -- [0.17135403,0.20753783,0.23625901,0.24026075,
 --  0.3450646, 0.2534873, 0.35245705,0.3584269,
@@ -109,10 +109,10 @@ ejArbolRN = (Black 11 (Red 2 (Black 1 Nil Nil) (Black 7 (Red 5 Nil Nil) (Red 8 N
 --  0.31222737,0.30961007,0.23625901,0.24026075]
 -- λ> elems $ softmax ejm2
 -- [2.1639727e-3, 0.2, 1.7809076e-2,
---  0.118148886,  0.2, 2.4101965e-3,
---  7.960811e-4,  0.2, 0.9723425,
---  0.8730087,    0.2, 6.551593e-3,
---  5.8822874e-3, 0.2, 8.8666176e-4]
+--  0.118148886,  0.2, 2.4101965and-3,
+--  7.960811and-4,  0.2, 0.9723425,
+--  0.8730087,    0.2, 6.551593and-3,
+--  5.8822874and-3, 0.2, 8.8666176and-4]
 
 ejm1, ejm2 :: Array (Int,Int) Float
 ejm1 = listArray ((1,1),(4,4)) [0.1, 0.2, 0.3, 0.4, 
@@ -131,10 +131,10 @@ softmax p = listArray b [soft i j | (i,j) <- indices p]
         sumaSoft j = sum [ (exp 1)**p!(i,j) | i <- [1..fst(snd b)]]
         b = bounds p
 
--- Ejercicio 2.2 (1 punto)
--- Define la propiedad (normalizada p) tal que reciba una matriz p y compruebe
--- que sus columnas están normalizadas; es decir, la suma de sus valores es
--- aproximadamente 1 (con un error de 0.001). Por ejemplo,
+-- Exercise 2.2 (1 punto)
+-- Defines the property (normalizada p) such that receive a matrix p and check
+-- that his columns are normalised; that is to say, the sum of his values is
+-- roughly 1 (con un error de 0.001). For example,
 -- λ> normalizada $ softmax ejm1
 -- True
 -- λ> normalizada ejm1
@@ -155,56 +155,56 @@ normalizada p =
 
 
 -- ----------------------------------------------------------------------
--- Ejercicio 3. (3 puntos) Define un programa que haga lo siguiente:
---   1. Pedir al usuario un nombre de fichero
---   2. Si el fichero no existe o está vacío, mostrar un mensaje de error y
---      volver a repetir.
---   3. Si el fichero existe o no está vacío, cargar su contenido y procesarlo
---      con un pequeño parser.
---   4. El parser tan solo indicará si el fichero es correcto o no. Lo que hará
---      será comprobar que los paréntesis "()" y las llaves "{}" están
---      debidamente cerrados. Hay que detectar que ningún paréntesis se ha
---      cerrado cuando había una llave abierta, y viceversa. Además, todos los 
---      paréntesis y llaves deben estar debidamente cerrados antes de
---      finalizar el fichero. Por ejemplo:
---       - es correcto: {()}, ({()}), {({})}
---       - es incorrecto: ({)}, ({(})), {, ((({})
---      Para ello, DEBES usar una pila. Cuando proceses la cadena con el
---      contenido del fichero, si te encuentras con un '(' o '{', añádelo a la
---      pila. Si te encuentras un ')' o un '}', comprueba que corresponde a lo
---      que haya en la cima de la pila. Al finalizar, la pila debe estar vacía.
---   5. si hay un error de este tipo, el programa debe escribir por
---      pantalla "incorrecto", mientras que si no hay error debe escribir
+-- Exercise 3. (3 puntos) Defines a program that do the following:
+--   1. Ask to the user a name of file
+--   2. If the file does not exist or is empty, show a message of error and
+--      go back to repeat.
+--   3. If the file exists or is not empty, upload his content and process it
+--      with a small parser.
+--   4. The parser so only will indicate if the file is correct or no. What will do
+--      will be to check that the parentheses "()" and the keys "{}" are
+--      properly enclosed. It is necessary to detect that any parenthesis has closed
+--       when there was an open key, and vice versa. Besides, all the 
+--      parentheses and keys have to be properly closed before
+--      finalising the file. For example:
+--       - It is correct: {()}, ({()}), {({})}
+--       - it is wrong: ({)}, ({(})), {, ((({})
+--      For this, HAVE TO use a battery. When you process the chain with the
+--      content of the file, if you find you with a '(' or '{', add it to the
+--      battery. If you find you a ')' or a '}', checks that it corresponds to what
+--       there is in the peak of the battery. When finalising, the battery has to be empty.
+--   5. If there is an error of this type, the program has to write by
+--      wrong "screen", whereas if there is not error has to write
 --      "correcto".
--- Por ejemplo:
+-- For example:
 -- λ> main
--- Indica nombre de fichero: fich1.cpp
--- Correcto
+-- Enter file name: fich1.cpp
+-- Correct
 -- λ> main
--- Indica nombre de fichero: fich2.cpp
--- Incorrecto
+-- Enter file name: fich2.cpp
+-- Incorrect
 -- λ> main
--- Indica nombre de fichero: fich.cpp
+-- Enter file name: fich.cpp
 -- fich.cpp: openFile: does not exist (No such file or directory)
--- error fichero no existe
--- Indica nombre de fichero: fich3.cpp
--- Incorrecto
+-- file does not exist Error
+-- Enter file name: fich3.cpp
+-- Incorrect
 -- ----------------------------------------------------------------------
 
 main :: IO ()
 main = do
-  putStr "Indica nombre de fichero: "
+  putStr "Enter file name: "
   fileName <- getLine
   input <- catch (readFile fileName)
                    (\err -> print (err::SomeException) >> return "")
   if (length input == 0) then do
-        putStrLn "error fichero no existe"
+        putStrLn "file does not exist error"
         main
     else
         if (parser input) then
-          putStrLn "Correcto"
+          putStrLn "Correct"
         else
-          putStrLn "Incorrecto"
+          putStrLn "Incorrect"
 
 parser :: String -> Bool
 parser s = parser' s vacia

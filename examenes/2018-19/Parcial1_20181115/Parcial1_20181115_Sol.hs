@@ -1,36 +1,36 @@
--- Programación Declarativa
--- Grado de Ingeniería Informática - Tecnologías Informáticas
--- Parcial 1                                   15 de Noviembre de 2018
+-- Declarative Programming
+-- Degree in Computer Engineering - Information Technologies
+-- Midterm 1                                   November 15, 2018
 -- -------------------------------------------------------------------
--- Apellidos:
--- Nombre:
+-- Surnames:
+-- Name:
 -- -------------------------------------------------------------------
--- AVISOS IMPORTANTES
--- · Antes de continuar, cambie el nombre de este archivo por:
+-- IMPORTANT NOTICES
+-- · Before continuing, change the name of this file to:
 --                   Parcial1_<uvus>.hs
---   donde <uvus> debe ser su usuario virtual.
--- · Escriba la solución de cada ejercicio en el hueco reservado para
---   ello.
--- · Asegúrese de utilizar correctamente el nombre y el tipo indicado
---   para cada función solicitada. Puede añadir tantas funciones
---   auxiliares (incluyendo el tipo adecuadamente) como necesite,
---   describiendo su objetivo.
+--   where <uvus> must be your virtual username.
+-- · Write the solution to each exercise in the space reserved for
+--   it.
+-- · Make sure you correctly use the name and type indicated
+--   for each requested function. You may add as many helper
+--   functions (including the type properly) as you need,
+--   describing their purpose.
 -- -------------------------------------------------------------------
 
 import Test.QuickCheck
 import CodeWorld
 
 -- ---------------------------------------------------------------------
--- Ejercicio 1. [0.75 ptos]
--- En geometría, la fórmula de Brahmagupta, dice que:
--- el área de un cuadrilátero cuyo lados miden a, b, c y d es la raíz
--- cuadrada de (s-a)(s-b)(s-c)(s-d), donde s es el semiperímetro 
+-- Exercise 1. [0.75 points]
+-- In geometry, Brahmagupta's formula states that:
+-- the area of a quadrilateral whose sides measure a, b, c and d is the square
+-- root of (s-a)(s-b)(s-c)(s-d), where s is the semiperimeter
 --    s = (a+b+c+d)/2
 -- 
--- Definir adecuadamente, evitando cálculos redundantes, la función 
+-- Define appropriately, avoiding redundant calculations, the function
 --    area :: Double -> Double -> Double -> Double -> Double
--- tal que (area a b c d) es el área del cuadrilátero de lados a,b,c,d.
--- Por ejemplo:
+-- such that (area a b c d) is the area of the quadrilateral with sides a,b,c,d.
+-- For example:
 --    area 6 9 7 2 ==> 30.
 -- ---------------------------------------------------------------------
 
@@ -40,20 +40,20 @@ area a b c d = sqrt r
         s = (a+b+c+d)/2
         
 -- -------------------------------------------------------------------
--- Ejercicio 2. [0.75 ptos]
--- Defina una función comparaDistintos, explicitando su tipo,
--- tal que reciba dos argumentos y devuelva un resultado, de modo que:
--- a. El tipo de los argumentos sea polimórfico (no concreto):
---  - El primero debe admitir el operador de igualdad y ser entero.
---  - El segundo ha de ser ordenable y racional.
---  - El resultado debe ser del mismo tipo que el segundo argumento.
--- b. La función haga lo siguiente:
---  - Si el primer parámetro es mayor que el segundo, devolver su
---  diferencia.
---  - Si el segundo es mayor, devolver el doble del segundo.
---  - Si en esencia valen lo mismo, devolver su valor.
+-- Exercise 2. [0.75 points]
+-- Define a function comparaDistintos, explicitly giving its type,
+-- such that it receives two arguments and returns a result, so that:
+-- a. The type of the arguments is polymorphic (not concrete):
+--  - The first must support equality and be integral.
+--  - The second must be orderable and fractional.
+--  - The result must be of the same type as the second argument.
+-- b. The function must do the following:
+--  - If the first parameter is greater than the second, return their
+--    difference.
+--  - If the second is greater, return double the second.
+--  - If they are essentially the same, return their value.
 --
--- Por ejemplo:
+-- For example:
 --   comparaDistintos 3 4.5 ==> 9.0
 --   comparaDistintos 4 3.5 ==> 0.5
 --   comparaDistintos 4 4.0 ==> 4.0
@@ -67,14 +67,14 @@ comparaDistintos x y
     where m = fromIntegral x
 
 -- ---------------------------------------------------------------------
--- Ejercicio 3. [1 pto]
--- Definir la función casi_extremos tal que (casi_extremos n xs) es
--- la lista formada por los n primeros elementos de xs (salvo el primero)
--- y los n elementos finales de xs (salvo el ultimo).
--- Nota: si la lista no tien elementos debe saltar un error controlado.
+-- Exercise 3. [1 point]
+-- Define the function casi_extremos such that (casi_extremos n xs) is
+-- the list formed by the first n elements of xs (except the first one)
+-- and the last n elements of xs (except the last one).
+-- Note: if the list has no elements, it must raise a controlled error.
 --
--- Por ejemplo:
---    casi_extremos 2 [] ==> "No es posible obtener los casi extremos"
+-- For example:
+--    casi_extremos 2 [] ==> "It is not possible to obtain the near extremes"
 --    casi_extremos 3 [1..10] ==> [2,3,4,7,8,9]
 --    casi_extremos 2 [2,6,7,1,2,4,5,8,9,2,3]  ==>  [6,7,9,2]
 --    casi_extremos 3 [2,6,7,1,2,4]  ==>  [6,7,1,7,1,2]
@@ -82,35 +82,35 @@ comparaDistintos x y
 
 casi_extremos n xs
   | length xs >= 1 = tail (take (n+1) xs) ++ init (finales (n+1) xs)
-  | otherwise = error "No es posible obtener los casi extremos"
+  | otherwise = error "It is not possible to obtain the near extremes"
 
 finales n xs = reverse (take n (reverse xs))
 
 -- ---------------------------------------------------------------------
--- Ejercicio 4. [0.5 ptos]
--- Definir una propiedad prop_casiext_reverse (y probarla con QuickCheck)
--- que indique que invertir la lista de los casi extremos n xs
--- es equivalente a
--- calcular los casi extremos n de la lista inversa de xs
--- Indique cómo debemos realizar la llamada a QuickCheck para probar
--- la propiedad
+-- Exercise 4. [0.5 points]
+-- Define a property prop_casiext_reverse (and test it with QuickCheck)
+-- stating that reversing the list of near extremes n xs
+-- is equivalent to
+-- computing the near extremes n of the reversed list xs
+-- Indicate how we should call QuickCheck to test
+-- the property
 -- ---------------------------------------------------------------------
 
 prop_casiext_reverse n xs = n>0 && xs /= [] ==>
   casi_extremos n (reverse xs) == reverse (casi_extremos n xs)
 
--- Llamada: quickCheck prop_casiext_reverse
+-- Call: quickCheck prop_casiext_reverse
 
 -- -------------------------------------------------------------------
--- Ejercicio 5. [1 pto]
--- Defina una función cumpleUnoDeTres,
--- que reciba como argumentos un predicado y una lista de elementos,
--- e indique si uno y solo uno de cada grupo de 3 elementos de la
--- lista, tomados de izquierda a derecha, cumple el predicado.
--- Nota: los grupos de menos de 3 elementos deben responder
---       afirmativamente al ejercicio.
+-- Exercise 5. [1 point]
+-- Define a function cumpleUnoDeTres,
+-- which receives as arguments a predicate and a list of elements,
+-- and indicates whether one and only one element of each group of 3
+-- elements in the list, taken from left to right, satisfies the predicate.
+-- Note: groups with fewer than 3 elements should answer
+--       positively for the exercise.
 --
--- Por ejemplo:
+-- For example:
 --   cumpleUnoDeTres even [1..100] ==> False
 --   cumpleUnoDeTres (\x -> mod x 3 == 0) [1..100] ==> True
 --   cumpleUnoDeTres (elem 'a') ["no","hay","prob","bro"] ==> True
@@ -127,19 +127,19 @@ cumpleUnoDeTres p (x:y:z:xs) =
   length (filter p [x,y,z]) == 1 && cumpleUnoDeTres p xs
 
 -- -------------------------------------------------------------------
--- Ejercicio 6. [1.5 ptos]
--- Desarrolle una función principal, main, con una animación usando
--- CodeWorld, de modo que la escena incluya un fondo estático (basta
--- con un cuadrado negro que ocupe la mayor parte de la pantalla),
--- y una parte móvil (círculo o cuadrado) que se vaya desplazando a
--- izquierda y derecha o bien hacia arriba y hacia abajo.
+-- Exercise 6. [1.5 points]
+-- Develop a main function, main, with an animation using
+-- CodeWorld, so that the scene includes a static background (a black
+-- square occupying most of the screen is enough),
+-- and a moving part (circle or square) that moves
+-- left and right or up and down.
 -- -------------------------------------------------------------------
 
 main = animationOf escena
 
 escena :: Double -> Picture
 escena t = cuadradoMovil t & fondo & ejes
--- Se ha decidido mantener los ejes de coordenadas
+-- It was decided to keep the coordinate axes
 
 tam = 10
 
@@ -148,7 +148,7 @@ tamCuad = 1
 
 fondo :: Picture
 fondo = coloured black $ cuadrado (2*(tam-1))
--- Se decide abarcar casi todo el fondo, pero no todo
+-- It was decided to cover almost all the background, but not all of it
 
 ejes :: Picture
 ejes = coordinatePlane
@@ -158,13 +158,13 @@ cuadrado n = coloured azure (solidRectangle n n)
 
 cuadradoMovil :: Double -> Picture
 cuadradoMovil t = translated (tam*sin(t-tam)) 0 (cuadrado 1)
--- Se decide permitir que el cuadrado móvil se salga del fondo
+-- It was decided to allow the moving square to leave the background
 
 -- -------------------------------------------------------------------
--- Ejercicio 7. [1 pto]
--- Dada la siguiente información acerca de personas, incluyendo su
--- nombre, ámbito en que destacaron, y rango en que vivieron dado por
--- (inicio, fin):
+-- Exercise 7. [1 point]
+-- Given the following information about people, including their
+-- name, field in which they stood out, and lifespan given by
+-- (start, end):
 
 personas :: [(String,String,(Int,Int))]
 personas = [("Cervantes","Literatura",(1547,1616)),
@@ -180,18 +180,18 @@ personas = [("Cervantes","Literatura",(1547,1616)),
             ("Borromini","Arquitectura",(1599,1667)),
             ("Bach","Musica",(1685,1750))]
 
--- Definir, mediante listas por comprensión, la función
--- primero_destacado, tal que primero_destacado x bd devuelva el
--- nombre de la primera persona nacida, destacada en el ámbito x
--- en la base de datos bd, en orden cronológico.
+-- Define, using list comprehensions, the function
+-- primero_destacado, such that primero_destacado x bd returns the
+-- name of the first-born person who stood out in field x
+-- in database bd, in chronological order.
 --
--- Por ejemplo:
+-- For example:
 --    primero_destacado "Musica" personas ==> "Bach"
 --    primero_destacado "Ciencia" personas ==> "Poincare"
 --
--- Ayuda: no tenga reparo en ir definiendo cuantas funciones
--- auxiliares necesite haciendo uso de cuantas funciones, es mejor
--- descomponer un problema en partes para facilitar su resolución.
+-- Help: do not hesitate to define as many helper
+-- functions as you need; it is better
+-- to break a problem into parts to make it easier to solve.
 -- 
 -- -------------------------------------------------------------------
 
@@ -204,67 +204,66 @@ primero_destacado x bd = head coincidentes
     coincidentes = [n | (n,c) <- cs, c==minimoAI]
 
 -- ---------------------------------------------------------------------
--- Ejercicio 8. [2 ptos]
--- Se considera la función procesaNoValidos
+-- Exercise 8. [2 points]
+-- Consider the function procesaNoValidos
 -- :: (Num a, Ord b) => (a -> b) -> (a -> b) -> (a -> Bool) -> [a] -> [b]
--- tal que (procesaNoValidos f g p xs) es la lista obtenida aplicándole a
--- los elementos de xs que NO cumplen el predicado p el máximo de
--- los resultados de la aplicación de la función f y la función g.
--- Por ejemplo:
+-- such that (procesaNoValidos f g p xs) is the list obtained by applying to
+-- the elements of xs that do NOT satisfy predicate p the maximum of
+-- the results of applying function f and function g.
+-- For example:
 --    procesaNoValidos (4+) (2*) (<3) [1..7]  =>  [7,8,10,12,14]
--- Se pide, definir la función
--- 1. usando map y filter,
--- 2. por recursión,
--- 3. por recursión con acumulador,
--- 4. por plegado (a izquierda o derecha).
+-- It is requested to define the function
+-- 1. using map and filter,
+-- 2. by recursion,
+-- 3. by recursion with an accumulator,
+-- 4. by folding (left or right).
 -- ---------------------------------------------------------------------
  
--- La definición con lista de comprensión (no pedida en el ejercicio) es
+-- The definition with a list comprehension (not required in the exercise) is
 procesaNoValidos_1 :: (Num a, Ord b) => (a -> b) -> (a -> b) -> (a -> Bool) -> [a] -> [b]
 procesaNoValidos_1 f g p xs = [max (f x) (g x) | x <- xs, not (p x)]
  
--- La definición con map y filter es
+-- The definition with map and filter is
 procesaNoValidos_2 :: (Num a, Ord b) => (a -> b) -> (a -> b) -> (a -> Bool) -> [a] -> [b]
 procesaNoValidos_2 f g p xs = map (\x -> max (f x) (g x)) $ filter (not.p) xs
  
--- La definición por recursión es
+-- The recursive definition is
 procesaNoValidos_3 :: (Num a, Ord b) => (a -> b) -> (a -> b) -> (a -> Bool) -> [a] -> [b]
 procesaNoValidos_3 f g p [] = []
 procesaNoValidos_3 f g p (x:xs)
   | not (p x) = max (f x) (g x) : procesaNoValidos_3 f g p xs
   | otherwise = procesaNoValidos_3 f g p xs
  
--- La definición por plegado es
+-- The folding definition is
 procesaNoValidos_4 :: (Num a, Ord b) => (a -> b) -> (a -> b) -> (a -> Bool) -> [a] -> [b]
 procesaNoValidos_4 f g p = foldr (\x y -> if not (p x) then (max (f x) (g x)):y else y) []
 
--- La definición por acumulador es
+-- The accumulator-based definition is
 procesaNoValidos_5 :: (Num a, Ord b) => (a -> b) -> (a -> b) -> (a -> Bool) -> [a] -> [b]
 procesaNoValidos_5 f g p xs = aux [] xs
   where aux acc [] = acc
         aux acc (x:xs) = aux (if p x then acc else acc ++ [max (f x) (g x)]) xs
 
--- La definición por plegado a la izquierda es
+-- The left-fold definition is
 procesaNoValidos_6 :: (Num a, Ord b) => (a -> b) -> (a -> b) -> (a -> Bool) -> [a] -> [b]
 procesaNoValidos_6 f g p = foldl (\acc x -> if not (p x) then acc++[max (f x) (g x)] else acc) []
 
 -- ---------------------------------------------------------------------
--- Ejercicio 9. [1.5 ptos]
--- Escriba un programa de Entrada y Salida que haga lo siguiente:
--- 1. Imprima un mensaje por pantalla solicitando un número natural al
---    usuario
--- 2. Reciba el número del usuario por teclado
--- 3. Calcule el cuadrado del número
--- 4. Muestre por pantalla que el cuadrado del número x es y, o similar.
--- 5. Almacene esa misma frase emitida a un fichero de texto.
+-- Exercise 9. [1.5 points]
+-- Write an Input/Output program that does the following:
+-- 1. Print a message on screen asking the user for a natural number
+-- 2. Read the user's number from the keyboard
+-- 3. Compute the square of the number
+-- 4. Display on screen that the square of number x is y, or similar.
+-- 5. Store that same output sentence in a text file.
 -- ---------------------------------------------------------------------
 
 main2 :: IO ()
 main2 = do
-  putStrLn "Por favor, introduzca un número entero: "
+  putStrLn "Please enter an integer:"
   s1 <- getLine
   let n1 = read s1
       c1 = n1^2
-  let s1 = "El cuadrado de " ++ show n1 ++ " es " ++ show c1
+  let s1 = "The square of " ++ show n1 ++ " is " ++ show c1
   putStrLn s1
   writeFile "Resultado.txt" s1
