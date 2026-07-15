@@ -1,44 +1,43 @@
--- PD- El TAD de las pilas.
--- Correspondiente a Relación 21 de I1M 2010-20
--- Departamento de Ciencias de la Computación e I.A.
--- Universidad de Sevilla
+-- PD- The Stack ADT.
+-- Corresponding to Exercise Set 21 of I1M 2010-20
+-- Department of Computer Science and A.I.
+-- University of Seville
 -- =====================================================================
 
 -- ---------------------------------------------------------------------
--- Introducción                                                       --
+-- Introduction                                                       --
 -- ---------------------------------------------------------------------
 
--- El objetivo de esta relación de ejercicios es definir funciones sobre 
--- el TAD de las pilas, utilizando las implementaciones estudiadas en el 
--- tema 14 cuyas transparencias se encuentran en 
+-- The goal of this exercise set is to define functions on
+-- the Stack ADT, using the implementations studied in
+-- topic 14 whose slides can be found at
 --    http://www.cs.us.es/~jalonso/cursos/i1m/temas/tema-14.html
 -- 
--- Para realizar los ejercicios hay que instalar la librería I1M que
--- contiene la implementación de TAD de las pilas. Los pasos para
--- instalarla son los siguientes:
+-- To complete the exercises you need to install the I1M library that
+-- contains the implementation of the Stack ADT. The steps to
+-- install it are the following:
 -- + cabal update
 -- + cabal install I1M
 --
--- Otra forma es descargar las implementaciones de las implementaciones
--- de las pilas:
--- + PilaConTipoDeDatoAlgebraico.hs que está en http://bit.ly/21z3g49
--- + PilaConListas.hs               que está en http://bit.ly/21z3oAD
+-- Another option is to download the implementations of the stacks:
+-- + PilaConTipoDeDatoAlgebraico.hs available at http://bit.ly/21z3g49
+-- + PilaConListas.hs               available at http://bit.ly/21z3oAD
 
 -- ---------------------------------------------------------------------
--- Importación de librerías                                           --
+-- Library imports                                                    --
 -- ---------------------------------------------------------------------
 
 import Data.List
 import Test.QuickCheck
 
--- Hay que elegir una implementación del TAD pilas.
+-- Choose one implementation of the Stack ADT.
 -- import PilaConTipoDeDatoAlgebraico
 -- import PilaConListas
 import I1M.Pila
 
 -- ---------------------------------------------------------------------
--- A lo largo de la relación de ejercicios usaremos los siguientes
--- ejemplos de pilas:
+-- Throughout this exercise set we will use the following
+-- example stacks:
 -- ---------------------------------------------------------------------
 
 ejP1, ejP2, ejP3, ejP4, ejP5 :: Pila Int
@@ -49,10 +48,10 @@ ejP4 = foldr apila vacia [4,-1,7,3,8,10,0,3,3,4]
 ejP5 = foldr apila vacia [1..5]
 
 -- ---------------------------------------------------------------------
--- Ejercicio 1: Definir la función
+-- Exercise 1: Define the function
 --    filtraPila :: (a -> Bool) -> Pila a -> Pila a
--- tal que (filtraPila p pila) es la pila con los elementos de pila
--- que verifican el predicado p, en el mismo orden. Por ejemplo,
+-- such that (filtraPila p pila) is the stack with the elements of pila
+-- that satisfy predicate p, in the same order. For example,
 --    ghci> ejP1
 --    1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|-
 --    ghci> filtraPila even ejP1
@@ -64,10 +63,10 @@ filtraPila :: (a -> Bool) -> Pila a -> Pila a
 filtraPila = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 2: Definir la función
+-- Exercise 2: Define the function
 --    mapPila :: (a -> a) -> Pila a -> Pila a
--- tal que (mapPila f pila) es la pila formada con las imágenes por f de
--- los elementos de pila, en el mismo orden. Por ejemplo,
+-- such that (mapPila f pila) is the stack formed by the images under f
+-- of the elements of pila, in the same order. For example,
 --    ghci> mapPila (+7) ejP1
 --    8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|-
 -- ---------------------------------------------------------------------
@@ -76,10 +75,10 @@ mapPila :: (a -> a) -> Pila a -> Pila a
 mapPila = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 3: Definir la función
+-- Exercise 3: Define the function
 --    pertenecePila :: (Eq a) => a -> Pila a -> Bool
--- tal que (pertenecePila y p) se verifica si y sólo si y es un elemento
--- de la pila p. Por ejemplo,
+-- such that (pertenecePila y p) holds if and only if y is an element
+-- of stack p. For example,
 --    pertenecePila 7 ejP1  == True
 --    pertenecePila 70 ejP1 == False
 -- ---------------------------------------------------------------------
@@ -88,10 +87,10 @@ pertenecePila :: (Eq a) => a -> Pila a -> Bool
 pertenecePila = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 4: definir la función
+-- Exercise 4: define the function
 --    contenidaPila :: (Eq a) => Pila a -> Pila a -> Bool
--- tal que (contenidaPila p1 p2) se verifica si y sólo si todos los
--- elementos de p1 son elementos de p2. Por ejemplo,
+-- such that (contenidaPila p1 p2) holds if and only if all elements
+-- of p1 are elements of p2. For example,
 --    contenidaPila ejP2 ejP1 == True
 --    contenidaPila ejP1 ejP2 == False
 -- ---------------------------------------------------------------------
@@ -100,10 +99,10 @@ contenidaPila :: (Eq a) => Pila a -> Pila a -> Bool
 contenidaPila = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 4: Defiir la función
+-- Exercise 4: Define the function
 --    prefijoPila :: (Eq a) => Pila a -> Pila a -> Bool
--- tal que (prefijoPila p1 p2) se verifica si la pila p1 es justamente
--- un prefijo de la pila p2. Por ejemplo,
+-- such that (prefijoPila p1 p2) holds if stack p1 is exactly
+-- a prefix of stack p2. For example,
 --    prefijoPila ejP3 ejP2 == False
 --    prefijoPila ejP5 ejP1 == True
 -- ---------------------------------------------------------------------
@@ -112,10 +111,10 @@ prefijoPila :: (Eq a) => Pila a -> Pila a -> Bool
 prefijoPila = undefined 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 5: Definir la función
+-- Exercise 5: Define the function
 --    subPila :: (Eq a) => Pila a -> Pila a -> Bool
--- tal que (subPila p1 p2) se verifica si p1 es una subpila de p2.
--- Por ejemplo, 
+-- such that (subPila p1 p2) holds if p1 is a sub-stack of p2.
+-- For example, 
 --    subPila ejP2 ejP1 == False
 --    subPila ejP3 ejP1 == True
 -- ---------------------------------------------------------------------
@@ -124,10 +123,10 @@ subPila :: (Eq a) => Pila a -> Pila a -> Bool
 subPila = undefined 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 6: Definir la función
+-- Exercise 6: Define the function
 --    ordenadaPila :: (Ord a) => Pila a -> Bool
--- tal que (ordenadaPila p) se verifica si los elementos de la pila p
--- están ordenados en orden creciente. Por ejemplo,
+-- such that (ordenadaPila p) holds if the elements of stack p
+-- are in ascending order. For example,
 --    ordenadaPila ejP1 == True
 --    ordenadaPila ejP4 == False
 -- ---------------------------------------------------------------------
@@ -136,10 +135,10 @@ ordenadaPila :: (Ord a) => Pila a -> Bool
 ordenadaPila = undefined 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 7.1: Definir una función
+-- Exercise 7.1: Define a function
 --    lista2Pila :: [a] -> Pila a
--- tal que (lista2Pila xs) es una pila formada por los elementos de xs.
--- Por ejemplo,
+-- such that (lista2Pila xs) is a stack formed by the elements of xs.
+-- For example,
 --    lista2Pila [1..6] == 1|2|3|4|5|6|-
 -- ---------------------------------------------------------------------
 
@@ -147,10 +146,10 @@ lista2Pila :: [a] -> Pila a
 lista2Pila xs = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 7.2: Definir una función
+-- Exercise 7.2: Define a function
 --  pila2Lista :: Pila a -> [a]
--- tal que (pila2Lista p) es la lista formada por los elementos de p.
--- Por ejemplo,
+-- such that (pila2Lista p) is the list formed by the elements of p.
+-- For example,
 --    pila2Lista ejP2 == [2,5,8,11,14,17]
 -- ---------------------------------------------------------------------
 
@@ -158,8 +157,8 @@ pila2Lista :: Pila a -> [a]
 pila2Lista = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 7.3: Comprobar con QuickCheck que la función pila2Lista es
--- la inversa de  lista2Pila, y recíprocamente.
+-- Exercise 7.3: Check with QuickCheck that the function pila2Lista is
+-- the inverse of lista2Pila, and vice versa.
 -- ---------------------------------------------------------------------
 
 prop_pila2Lista :: Pila Int -> Bool
@@ -175,10 +174,10 @@ prop_lista2Pila xs = undefined
 -- +++ OK, passed 100 tests.
 
 -- ---------------------------------------------------------------------
--- Ejercicio 9.1: Definir la función 
+-- Exercise 9.1: Define the function 
 --    ordenaInserPila :: (Ord a) => Pila a -> Pila a
--- tal que (ordenaInserPila p) es una pila con los elementos de la pila
--- p, ordenados por inserción. Por ejemplo,
+-- such that (ordenaInserPila p) is a stack with the elements of stack
+-- p sorted by insertion. For example,
 --    ghci> ordenaInserPila ejP4
 --    -1|0|3|3|3|4|4|7|8|10|-
 -- ---------------------------------------------------------------------
@@ -187,9 +186,9 @@ ordenaInserPila :: (Ord a) => Pila a -> Pila a
 ordenaInserPila = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 9.2: Comprobar con QuickCheck que la pila 
+-- Exercise 9.2: Check with QuickCheck that the stack 
 ---    (ordenaInserPila p) 
--- está ordenada correctamente.
+-- is correctly sorted.
 
 prop_ordenaInserPila :: Pila Int -> Bool
 prop_ordenaInserPila p = undefined
@@ -198,10 +197,10 @@ prop_ordenaInserPila p = undefined
 -- +++ OK, passed 100 tests.
 
 -- ---------------------------------------------------------------------
--- Ejercicio 10.1: Definir la función
+-- Exercise 10.1: Define the function
 --    nubPila :: (Eq a) => Pila a -> Pila a
--- tal que (nubPila p) es una pila con los elementos de p sin
--- repeticiones. Por ejemplo,
+-- such that (nubPila p) is a stack with the elements of p without
+-- repetitions. For example,
 --    ghci> ejP4
 --    4|-1|7|3|8|10|0|3|3|4|-
 --    ghci> nubPila ejP4
@@ -212,24 +211,23 @@ nubPila :: (Eq a) => Pila a -> Pila a
 nubPila = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 10.2: Definir la propiedad siguiente: "las composición de
--- las funciones nub y pila2Lista coincide con la composición de las
--- funciones pila2Lista y nubPila", y comprobarla con quickCheck.
--- En caso de ser falsa, redefinir la función nubPila para que se
--- verifique la propiedad.
+-- Exercise 10.2: Define the following property: "the composition of
+-- the functions nub and pila2Lista coincides with the composition of
+-- the functions pila2Lista and nubPila", and check it with quickCheck.
+-- If it is false, redefine nubPila so that the property holds.
 -- ---------------------------------------------------------------------
 
--- La propiedad es
+-- The property is
 prop_nubPila :: Pila Int -> Bool
 prop_nubPila p = undefined
 
--- La comprobación es
+-- The check is
 
 -- ---------------------------------------------------------------------
--- Ejercicio 11: Definir la función 
+-- Exercise 11: Define the function 
 --    maxPila :: (Ord a) => Pila a -> a
--- tal que (maxPila p) sea el mayor de los elementos de la pila p. Por
--- ejemplo, 
+-- such that (maxPila p) is the greatest element of stack p. For
+-- example, 
 --    ghci> ejP4
 --    4|-1|7|3|8|10|0|3|3|4|-
 --    ghci> maxPila ejP4
@@ -240,10 +238,10 @@ maxPila :: (Ord a) => Pila a -> a
 maxPila = undefined
 
 -- ---------------------------------------------------------------------
--- Generador de pilas                                                 --
+-- Stack generator                                                    --
 -- ---------------------------------------------------------------------
 
--- genPila es un generador de pilas. Por ejemplo,
+-- genPila is a stack generator. For example,
 --    ghci> sample genPila
 --    -
 --    0|0|-
@@ -260,7 +258,7 @@ genPila :: (Arbitrary a, Num a) => Gen (Pila a)
 genPila = do xs <- listOf arbitrary
              return (foldr apila vacia xs)
   
--- El tipo pila es una instancia del arbitrario. 
+-- The Pila type is an instance of Arbitrary. 
 instance (Arbitrary a, Num a) => Arbitrary (Pila a) where
     arbitrary = genPila
 

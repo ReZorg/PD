@@ -1,20 +1,19 @@
--- PD-Práctica 6.4
--- Árboles Trie
--- Departamento de Ciencias de la Computación e I.A.
--- Universidad de Sevilla
+-- PD-Practice 6.4
+-- Trie Trees
+-- Department of Computer Science and A.I.
+-- University of Seville
 -- =====================================================================
 
 -- ---------------------------------------------------------------------
--- Un árbol Trie es un árbol que codifica un diccionario, es decir,
--- asociaciones de clave - valor. La peculiaridad de estos árboles es que
--- los nodos internos codifican las claves de forma eficiente, ya que
--- los prefijos comunes a las claves solo aparecen una vez. En
--- concreto, se puede usar para almacenar cadenas como claves de forma
--- eficiente, si en cada nodo interno se almacena una letra y sus hijos
--- son las posibles letras que le pueden suceder. De esta forma la 
--- representación de todo un vocabulario se compacta. A continuación se
--- muestra un ejemplo, donde las Claves son nombres de personas y los
--- Valores son enteros que representan un número de teléfono.
+-- A Trie tree is a tree that encodes a dictionary, that is,
+-- key-value associations. The peculiarity of these trees is that
+-- the internal nodes encode keys efficiently, since prefixes
+-- common to the keys appear only once. In particular, it can be used
+-- to store strings as keys efficiently, if each internal node stores
+-- one letter and its children are the possible letters that can follow
+-- it. In this way the representation of an entire vocabulary is
+-- compacted. Below is an example, where the Keys are people's names
+-- and the Values are integers representing a phone number.
 --
 --                              ""
 --                             /  \
@@ -30,29 +29,29 @@
 --                    |         / \
 --                 63822    67321 62375
 --                              
--- el árbol de ejemplo almacena los teléfonos de los siguientes contactos:
+-- the example tree stores the phone numbers of the following contacts:
 --  "JUAN" -> 68972, "JULIA" -> 67321, "JULIA" -> 62375, "IVAN" -> 69712,
 --  "JUANA" -> 63822, "INES" -> 66631
--- Nótese que hay dos nombres repetidos ("JULIA"). De esta manera, las
--- claves se distribuyen en los nodos internos, de tal forma que cada nodo
--- tiene asociado tan solo un carácter en forma de cadena (la clave es la
--- concatenación de la sucesión de nodos internos desde la raíz hasta la
--- hoja.
+-- Note that there are two repeated names ("JULIA"). In this way, the
+-- keys are distributed across the internal nodes, so that each node
+-- has only one character associated as a string (the key is the
+-- concatenation of the sequence of internal nodes from the root to the
+-- leaf.
 -- ---------------------------------------------------------------------
 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 1.1. Definir el tipo de datos para un árbol Trie polimórfico,
--- donde los nodos internos almacenen un elemento de un tipo Clave y puedan
--- tener más de un hijo, y las hojas almacenen tan solo un Valor. El árbol
--- debe ser imprimible. Llámalo ArbolTrie, y usa como constructores HT
--- para las hojas y NT para los nodos internos.
+-- Exercise 1.1. Define the data type for a polymorphic Trie tree,
+-- where internal nodes store an element of a Key type and can
+-- have more than one child, and leaves store only a Value. The tree
+-- must be printable. Name it ArbolTrie, and use as constructors HT
+-- for leaves and NT for internal nodes.
 
 
 
 
--- Ejercicio 1.2. Definir un sinónimo de árbol Trie que emplee cadenas
--- como Claves y enteros como Valores. Llámalo ArbolTrieContactos.
+-- Exercise 1.2. Define a Trie tree synonym that uses strings
+-- as Keys and integers as Values. Name it ArbolTrieContactos.
 
 
 
@@ -60,13 +59,13 @@
 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 2. Definir las funciones siguientes:
---    (a) (arbolTrieVacio), que devuelva un árbol con solo el nodo raíz,
---         el cual tiene como clave la cadena vacía ("") y ningún hijo.
---    (b) (clave n), que devuelva la clave asociado al nodo n. Si n es
---         una hoja, devolver la cadena vacía "".
---    (c) (esHoja n), que indique con un booleano si el nodo n es una hoja.
--- Por ejemplo,
+-- Exercise 2. Define the following functions:
+--    (a) (arbolTrieVacio), which returns a tree with only the root node,
+--         which has the empty string ("") as key and no children.
+--    (b) (clave n), which returns the key associated with node n. If n is
+--         a leaf, return the empty string "".
+--    (c) (esHoja n), which indicates with a boolean whether node n is a leaf.
+-- For example,
 -- λ> arbolTrieVacio
 -- NT "" []
 -- λ> clave (NT "c" [])
@@ -89,10 +88,10 @@ esHoja = undefined
 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 3.1 Definir la función (buscaClave s as), tal que reciba una
--- lista de árboles as y una cadena de un solo carácter s, y devuelva el
--- árbol cuya clave coincida con s. Si tal árbol no existe, entonces
--- será un nodo interno nuevo con clave s y sin hijos. Por ejemplo,
+-- Exercise 3.1 Define the function (buscaClave s as), such that it receives a
+-- list of trees as and a single-character string s, and returns the
+-- tree whose key matches s. If no such tree exists, then it will be
+-- a new internal node with key s and no children. For example,
 -- λ> buscaClave "s" [NT "o" [],NT "s" [HT 100]]
 -- NT "s" [HT 100]
 -- λ> buscaClave "x" [NT "o" [],NT "s" [HT 100]]
@@ -104,14 +103,14 @@ buscaClave = undefined
 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 3.2 Definir la función (siguienteNodo hs s), que reciba una
--- lista de árboles as y una cadena de un solo carácter s, y devuelva un
--- par tal que:
---  1. El primer elemento del par será el resultado de llamar a la función
---     buscaClave con s y as.
---  2. El segundo elemento del par serán todos los nodos de as cuyas claves
---     no coincidan con s.
--- Por ejemplo,
+-- Exercise 3.2 Define the function (siguienteNodo hs s), which receives a
+-- list of trees as and a single-character string s, and returns a
+-- pair such that:
+--  1. The first element of the pair is the result of calling the
+--     buscaClave function with s and as.
+--  2. The second element of the pair is all nodes of as whose keys
+--     do not match s.
+-- For example,
 -- λ> siguienteNodo "s" [NT "o" [],NT "s" [HT 100]]
 -- (NT "s" [HT 100],[NT "o" []])
 -- λ> siguienteNodo "x" [NT "o" [],NT "s" [HT 100]]
@@ -123,18 +122,18 @@ siguienteNodo = undefined
 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 4. Definir la función (inserta a p ), que reciba un
--- árbol Trie, a, y un par p = (clave, valor), siendo clave una cadena
--- de caracteres, y valor es un entero. La función debe devolver el
--- árbol a extendido tal que incluya el nuevo par (clave,valor). El
--- procedimiento es como sigue:
---   - Si la clave es la cadena vacía, se añade el valor como hoja del
---     nodo interno actual
---   - En otro caso, se llama a siguienteNodo con la primera letra de
---     la clave, y la lista lista de nodos hijos del nodo actual y la
---     primera letra de la clave. El resultado se utiliza para llamar
---     de nuevo a la función inserta y se añade como hijo del nodo actual.
--- Por ejemplo,
+-- Exercise 4. Define the function (inserta a p), which receives a
+-- Trie tree a and a pair p = (key, value), where key is a string
+-- of characters and value is an integer. The function must return
+-- tree a extended to include the new pair (key,value). The procedure
+-- is as follows:
+--   - If the key is the empty string, add the value as a leaf of the
+--     current internal node
+--   - Otherwise, call siguienteNodo with the first letter of the key,
+--     and the list of child nodes of the current node and the first
+--     letter of the key. The result is used to call inserta again
+--     and is added as a child of the current node.
+-- For example,
 -- λ> inserta  arbolTrieVacio ("ok",43)
 -- NT "" [NT "o" [NT "k" [HT 43]]]
 -- λ> inserta (NT "" [NT "o" [NT "k" [HT 43]]]) ("os",542)
@@ -146,9 +145,9 @@ inserta = undefined
 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 5. Definir la función (insertaElemsEnArbol a cs), que reciba un
--- árbol Trie, a, y una lista, cs, de pares (clave, valor), y devuelva un
--- árbol con todos los elementos insertados. Por ejemplo, 
+-- Exercise 5. Define the function (insertaElemsEnArbol a cs), which receives a
+-- Trie tree a and a list cs of (key, value) pairs, and returns a
+-- tree with all elements inserted. For example, 
 --    insertaElemsEnArbol arbolTrieVacio
 --        [("IVAN",69712),("JULIA",62375),("JULIA",67321),("JUAN",68972)]
 -- NT ""
@@ -161,10 +160,10 @@ insertaElemsEnArbol = undefined
 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 6. Definir la (consultaValor a cs), tal que reciba un árbol
--- Trie a y una Clave cs, y devuelva los valores asociados a ella. Si la
--- clave no está en el árbol o no tiene asociados valores, devolver la
--- lista vacía. Por ejemplo,
+-- Exercise 6. Define (consultaValor a cs), such that it receives a Trie
+-- tree a and a Key cs, and returns the values associated with it. If the
+-- key is not in the tree or has no associated values, return the empty
+-- list. For example,
 -- let a = NT "" [NT "J" [NT "U" [NT "A" [NT "N" [HT 68972]],NT "L" [NT "I" [NT "A" [HT 67321,HT 62375]]]]],NT "I" [NT "V" [NT "A" [NT "N" [HT 69712]]]]]
 -- λ> consultaValor a "JUAN"
 -- [68972]

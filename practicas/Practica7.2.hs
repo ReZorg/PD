@@ -1,44 +1,43 @@
--- PD- El TAD de las colas.
--- Correspondiente a Relación 22 de I1M 2019-20
--- Departamento de Ciencias de la Computación e I.A.
--- Universidad de Sevilla
+-- PD- The Queue ADT.
+-- Corresponding to Exercise Set 22 of I1M 2019-20
+-- Department of Computer Science and A.I.
+-- University of Seville
 -- =====================================================================
 
 -- ---------------------------------------------------------------------
--- Introducción                                                       --
+-- Introduction                                                       --
 -- ---------------------------------------------------------------------
 
--- El objetivo de esta relación de ejercicios es definir funciones sobre 
--- el TAD de las colas, utilizando las implementaciones estudiadas en el 
--- tema 15 transparencias se encuentran en 
+-- The goal of this exercise set is to define functions on
+-- the Queue ADT, using the implementations studied in
+-- topic 15 whose slides can be found at
 --    http://www.cs.us.es/~jalonso/cursos/i1m/temas/tema-15.html
 -- 
--- Para realizar los ejercicios hay que instalar la librería I1M que
--- contiene la implementación de TAD de las pilas. Los pasos para
--- instalarla son los siguientes:
+-- To complete the exercises you need to install the I1M library that
+-- contains the implementation of the Queue ADT. The steps to
+-- install it are the following:
 -- + cabal update
 -- + cabal install I1M
 -- 
--- Otra forma es descargar las implementaciones de las implementaciones
--- de las colas:
--- + ColaConListas.hs    que está en http://bit.ly/21z3wQL
--- + ColaConDosListas.hs que está en http://bit.ly/21z3AQp
+-- Another option is to download the implementations of the queues:
+-- + ColaConListas.hs    available at http://bit.ly/21z3wQL
+-- + ColaConDosListas.hs available at http://bit.ly/21z3AQp
 
 -- ---------------------------------------------------------------------
--- Importación de librerías                                           --
+-- Library imports                                                    --
 -- ---------------------------------------------------------------------
 
 import Data.List
 import Test.QuickCheck
 
--- Hay que elegir una implementación del TAD colas:
+-- Choose one implementation of the Queue ADT:
 import ColaConListas
 -- import ColaConDosListas
 -- import I1M.Cola
     
 -- ---------------------------------------------------------------------
--- Nota. A lo largo de la relación de ejercicios usaremos los siguientes
--- ejemplos de colas:
+-- Note. Throughout this exercise set we will use the following
+-- example queues:
 c1, c2, c3, c4, c5, c6 :: Cola Int
 c1 = foldr inserta vacia [1..20]
 c2 = foldr inserta vacia [2,5..18]
@@ -49,10 +48,10 @@ c6 = foldr inserta vacia (reverse [1..20])
 -- ---------------------------------------------------------------------
 
 -- ---------------------------------------------------------------------
--- Ejercicio 1: Definir la función
+-- Exercise 1: Define the function
 --    ultimoCola :: Cola a -> a
--- tal que (ultimoCola c) es el último elemento de la cola c. Por
--- ejemplo:
+-- such that (ultimoCola c) is the last element of queue c. For
+-- example:
 --    ultimoCola c4 == 4
 --    ultimoCola c5 == 15
 -- ---------------------------------------------------------------------
@@ -61,10 +60,10 @@ ultimoCola :: Cola a -> a
 ultimoCola c = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 2: Definir la función
+-- Exercise 2: Define the function
 --    longitudCola :: Cola a -> Int
--- tal que (longitudCola c) es el número de elementos de la cola c. Por
--- ejemplo, 
+-- such that (longitudCola c) is the number of elements of queue c. For
+-- example, 
 --     longitudCola c2 == 6
 -- ---------------------------------------------------------------------
 
@@ -72,10 +71,10 @@ longitudCola :: Cola a -> Int
 longitudCola c = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 3: Definir la función 
+-- Exercise 3: Define the function 
 --    todosVerifican :: (a -> Bool) -> Cola a -> Bool
--- tal que (todosVerifican p c) se verifica si todos los elementos de la
--- cola c cumplen la propiedad p. Por ejemplo,
+-- such that (todosVerifican p c) holds if all elements of queue c
+-- satisfy property p. For example,
 --    todosVerifican (>0) c1 == True
 --    todosVerifican (>0) c4 == False
 -- ---------------------------------------------------------------------
@@ -84,10 +83,10 @@ todosVerifican :: (a -> Bool) -> Cola a -> Bool
 todosVerifican p c = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 4: Definir la función
+-- Exercise 4: Define the function
 --    algunoVerifica :: (a -> Bool) -> Cola a -> Bool
--- tal que (algunoVerifica p c) se verifica si algún elemento de la cola
--- c cumple la propiedad p. Por ejemplo,
+-- such that (algunoVerifica p c) holds if some element of queue c
+-- satisfies property p. For example,
 --   algunoVerifica (<0) c1 == False
 --   algunoVerifica (<0) c4 == True
 -- ---------------------------------------------------------------------
@@ -96,10 +95,10 @@ algunoVerifica :: (a -> Bool) -> Cola a -> Bool
 algunoVerifica p c = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 5: Definir la función
+-- Exercise 5: Define the function
 --    ponAlaCola :: Cola a -> Cola a -> Cola a
--- tal que (ponAlaCola c1 c2) es la cola que resulta de poner los
--- elementos de c2 a la cola de c1. Por ejemplo,
+-- such that (ponAlaCola c1 c2) is the queue resulting from appending
+-- the elements of c2 to the end of c1. For example,
 --    ponAlaCola c2 c3 == C [17,14,11,8,5,2,10,9,8,7,6,5,4,3]
 -- ---------------------------------------------------------------------
 
@@ -107,11 +106,11 @@ ponAlaCola :: Cola a -> Cola a -> Cola a
 ponAlaCola c1 c2 = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 6: Definir la función
+-- Exercise 6: Define the function
 --    mezclaColas :: Cola a -> Cola a -> Cola a
--- tal que (mezclaColas c1 c2) es la cola formada por los elementos de
--- c1 y c2 colocados en una cola, de forma alternativa, empezando por
--- los elementos de c1. Por ejemplo,
+-- such that (mezclaColas c1 c2) is the queue formed by the elements of
+-- c1 and c2 placed alternately, starting with the elements of c1.
+-- For example,
 --    mezclaColas c2 c4 == C [17,4,14,3,11,3,8,0,5,10,2,8,3,7,-1,4]
 -- ---------------------------------------------------------------------
 
@@ -119,11 +118,11 @@ mezclaColas :: Cola a -> Cola a -> Cola a
 mezclaColas c1 c2 = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 7: Definir la función
+-- Exercise 7: Define the function
 --    agrupaColas :: [Cola a] -> Cola a
--- tal que (agrupaColas [c1,c2,c3,...,cn]) es la cola formada mezclando
--- las colas de la lista como sigue: mezcla c1 con c2, el resultado con
--- c3, el resultado con c4, y así sucesivamente. Por ejemplo,
+-- such that (agrupaColas [c1,c2,c3,...,cn]) is the queue formed by
+-- merging the queues in the list as follows: merge c1 with c2, the
+-- result with c3, the result with c4, and so on. For example,
 --    ghci> agrupaColas [c3,c3,c4]
 --    C [10,4,10,3,9,3,9,0,8,10,8,8,7,3,7,7,6,-1,6,4,5,5,4,4,3,3]
 -- ---------------------------------------------------------------------
@@ -132,10 +131,10 @@ agrupaColas :: [Cola a] -> Cola a
 agrupaColas = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 8: Definir la función
+-- Exercise 8: Define the function
 --    perteneceCola :: Eq a => a -> Cola a -> Bool
--- tal que (perteneceCola x c) se verifica si x es un elemento de la
--- cola c. Por ejemplo, 
+-- such that (perteneceCola x c) holds if x is an element of queue c.
+-- For example, 
 --    perteneceCola 7 c1  == True
 --    perteneceCola 70 c1 == False
 -- ---------------------------------------------------------------------
@@ -144,10 +143,10 @@ perteneceCola :: Eq a => a -> Cola a -> Bool
 perteneceCola y c = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 9: Definir la función
+-- Exercise 9: Define the function
 --    contenidaCola :: Eq a => Cola a -> Cola a -> Bool
--- tal que (contenidaCola c1 c2) se verifica si todos los elementos de
--- c1 son elementos de c2. Por ejemplo, 
+-- such that (contenidaCola c1 c2) holds if all elements of c1 are
+-- elements of c2. For example, 
 --    contenidaCola c2 c1 == True
 --    contenidaCola c1 c2 == False
 -- ---------------------------------------------------------------------
@@ -156,10 +155,10 @@ contenidaCola :: Eq a => Cola a -> Cola a -> Bool
 contenidaCola c1 c2 = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 10: Definir la función
+-- Exercise 10: Define the function
 --    prefijoCola :: Eq a => Cola a -> Cola a -> Bool
--- tal que (prefijoCola c1 c2) se verifica si la cola c1 es un prefijo
--- de la cola c2. Por ejemplo, 
+-- such that (prefijoCola c1 c2) holds if queue c1 is a prefix of
+-- queue c2. For example, 
 --    prefijoCola c3 c2 == False
 --    prefijoCola c5 c1 == True
 -- ---------------------------------------------------------------------
@@ -168,10 +167,10 @@ prefijoCola :: Eq a => Cola a -> Cola a -> Bool
 prefijoCola c1 c2 = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 11: Definir la función
+-- Exercise 11: Define the function
 --    subCola :: Eq a => Cola a -> Cola a -> Bool
--- tal que (subCola c1 c2) se verifica si c1 es una subcola de c2. Por
--- ejemplo,  
+-- such that (subCola c1 c2) holds if c1 is a sub-queue of c2. For
+-- example,  
 --    subCola c2 c1 == False
 --    subCola c3 c1 == True
 -- ---------------------------------------------------------------------
@@ -180,10 +179,10 @@ subCola :: Eq a => Cola a -> Cola a -> Bool
 subCola c1 c2 = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 12: Definir la función
+-- Exercise 12: Define the function
 --    ordenadaCola :: Ord a => Cola a -> Bool
--- tal que (ordenadaCola c) se verifica si los elementos de la cola c
--- están ordenados en orden creciente. Por ejemplo,
+-- such that (ordenadaCola c) holds if the elements of queue c are in
+-- ascending order. For example,
 --    ordenadaCola c6 == True
 --    ordenadaCola c4 == False
 -- ---------------------------------------------------------------------
@@ -192,10 +191,10 @@ ordenadaCola :: Ord a => Cola a -> Bool
 ordenadaCola c = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 13.1: Definir una función
+-- Exercise 13.1: Define a function
 --    lista2Cola :: [a] -> Cola a
--- tal que (lista2Cola xs) es una cola formada por los elementos de xs.
--- Por ejemplo,
+-- such that (lista2Cola xs) is a queue formed by the elements of xs.
+-- For example,
 --    lista2Cola [1..6] == C [1,2,3,4,5,6]
 -- ---------------------------------------------------------------------
 
@@ -203,10 +202,10 @@ lista2Cola :: [a] -> Cola a
 lista2Cola xs = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 13.2: Definir una función
+-- Exercise 13.2: Define a function
 --    cola2Lista :: Cola a -> [a]
--- tal que (cola2Lista c) es la lista formada por los elementos de p.
--- Por ejemplo,
+-- such that (cola2Lista c) is the list formed by the elements of p.
+-- For example,
 --    cola2Lista c2 == [17,14,11,8,5,2]
 -- ---------------------------------------------------------------------
 
@@ -214,8 +213,8 @@ cola2Lista :: Cola a -> [a]
 cola2Lista c = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 13.3. Comprobar con QuickCheck que la función cola2Lista es
--- la inversa de  lista2Cola, y recíprocamente.
+-- Exercise 13.3. Check with QuickCheck that the function cola2Lista is
+-- the inverse of lista2Cola, and vice versa.
 -- ---------------------------------------------------------------------
 
 prop_cola2Lista :: Cola Int -> Bool
@@ -231,10 +230,10 @@ prop_lista2Cola xs = undefined
 -- +++ OK, passed 100 tests.
 
 -- ---------------------------------------------------------------------
--- Ejercicio 14: Definir la función 
+-- Exercise 14: Define the function 
 --    maxCola :: Ord a => Cola a -> a
--- tal que (maxCola c) es el mayor de los elementos de la cola c. Por
--- ejemplo, 
+-- such that (maxCola c) is the greatest element of queue c. For
+-- example, 
 --    maxCola c4 == 10
 -- ---------------------------------------------------------------------
 
@@ -242,10 +241,10 @@ maxCola :: Ord a => Cola a -> a
 maxCola p = undefined
 
 -- ---------------------------------------------------------------------
--- Generador de colas                                          --
+-- Queue generator                                            --
 -- ---------------------------------------------------------------------
 
--- genCola es un generador de colas de enteros. Por ejemplo,
+-- genCola is an integer queue generator. For example,
 --    ghci> sample genCola
 --    C ([],[])
 --    C ([],[])
@@ -265,7 +264,7 @@ genCola = frequency [(1, return vacia),
                              return (creaCola xs))]
           where creaCola = foldr inserta vacia
 
--- El tipo cola es una instancia del arbitrario.
+-- The Cola type is an instance of Arbitrary.
 instance (Arbitrary a, Num a) => Arbitrary (Cola a) where
     arbitrary = genCola
 

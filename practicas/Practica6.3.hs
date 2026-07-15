@@ -1,23 +1,23 @@
--- PD-Práctica 6.3
--- Expresiones Aritméticas con tipos de datos algebráicos
--- Departamento de Ciencias de la Computación e I.A.
--- Universidad de Sevilla
+-- PD-Practice 6.3
+-- Arithmetic Expressions with algebraic data types
+-- Department of Computer Science and A.I.
+-- University of Seville
 -- =====================================================================
 
 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 1. Las expresiones aritméticas básicas pueden
--- representarse usando el siguiente tipo de datos  
+-- Exercise 1. Basic arithmetic expressions can be
+-- represented using the following data type  
 --    data Expr1 = C1 Int 
 --               | S1 Expr1 Expr1 
 --               | P1 Expr1 Expr1  
 --               deriving Show
--- Por ejemplo, la expresión 2*(3+7) se representa por
+-- For example, the expression 2*(3+7) is represented by
 --    P1 (C1 2) (S1 (C1 3) (C1 7))
 -- 
--- Definir la función evalua, tal que (evalua e) es el valor de la 
--- expresión aritmética e. Por ejemplo, 
+-- Define the function evalua, such that (evalua e) is the value of the 
+-- arithmetic expression e. For example, 
 --    evalua (P1 (C1 2) (S1 (C1 3) (C1 7)))  ==  20
 -- ---------------------------------------------------------------------
 
@@ -27,9 +27,9 @@ data Expr1 = C1 Int
            deriving Show
 
 -- ---------------------------------------------------------------------
--- Ejercicio 2. Definir la función aplica, tal que (aplica f e) es la 
--- expresión obtenida aplicando la función f a cada uno de los números 
--- de la expresión e. Por ejemplo, 
+-- Exercise 2. Define the function aplica, such that (aplica f e) is the 
+-- expression obtained by applying the function f to each number in
+-- expression e. For example, 
 --    ghci> aplica (+2) (S1 (P1 (C1 3) (C1 5)) (P1 (C1 6) (C1 7)))
 --    S1 (P1 (C1 5) (C1 7)) (P1 (C1 8) (C1 9))
 --    ghci> aplica (*2) (S1 (P1 (C1 3) (C1 5)) (P1 (C1 6) (C1 7)))
@@ -38,19 +38,19 @@ data Expr1 = C1 Int
 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 3. Las expresiones aritméticas construidas con una
--- variable (denotada por X), los números enteros y las operaciones de
--- sumar y multiplicar se pueden representar mediante el tipo de datos
--- Expr2 definido por     
+-- Exercise 3. Arithmetic expressions built with one
+-- variable (denoted X), integer numbers, and the operations of
+-- addition and multiplication can be represented using the data type
+-- Expr2 defined by     
 --    data Expr2 = X
 --               | C2 Int
 --               | S2 Expr2 Expr2
 --               | P2 Expr2 Expr2
--- Por ejemplo, la expresión "X*(13+X)" se representa por
+-- For example, the expression "X*(13+X)" is represented by
 -- "P2 X (S2 (C2 13) X)".
 -- 
--- Definir la función evaluaE, tal que (evaluaE e n) es el valor de la 
--- expresión e cuando se sustituye su variable por n. Por ejemplo,
+-- Define the function evaluaE, such that (evaluaE e n) is the value of
+-- expression e when its variable is substituted by n. For example,
 --    evaluaE (P2 X (S2 (C2 13) X)) 2  ==  30
 -- ---------------------------------------------------------------------
  
@@ -60,28 +60,28 @@ data Expr2 = X
            | P2 Expr2 Expr2
 
 -- ---------------------------------------------------------------------
--- Ejercicio 4. Definir la función numVars, tal que (numVars e) es el 
--- número de variables en la expresión e. Por ejemplo, 
+-- Exercise 4. Define the function numVars, such that (numVars e) is the 
+-- number of variables in expression e. For example, 
 --    numVars (C2 3)                 ==  0
 --    numVars X                      ==  1
 --    numVars (P2 X (S2 (C2 13) X))  ==  2
 -- ---------------------------------------------------------------------
 
 -- ---------------------------------------------------------------------
--- Ejercicio 5. Las expresiones aritméticas con variables genéricas 
--- pueden representarse usando el siguiente tipo de datos  
+-- Exercise 5. Arithmetic expressions with generic variables 
+-- can be represented using the following data type  
 --    data Expr3 = C3 Int 
 --               | V3 Char 
 --               | S3 Expr3 Expr3 
 --               | P3 Expr3 Expr3  
 --               deriving Show
--- Por ejemplo, la expresión 2*(a+5) se representa por
+-- For example, the expression 2*(a+5) is represented by
 --    P3 (C3 2) (S3 (V3 'a') (C3 5))
 -- 
--- Definir la función evaluaG, tal que (evaluaG e c) es el valor de la 
--- expresión e en el contexto c (es decir, el valor de la expresión 
--- donde las variables de e se sustituyen por los valores según se 
--- indican en el contexto c). Por ejemplo,
+-- Define the function evaluaG, such that (evaluaG e c) is the value of
+-- expression e in context c (i.e., the value of the expression where
+-- the variables of e are substituted by the values given in context c).
+-- For example,
 --    ghci> evaluaG (P3 (C3 2) (S3 (V3 'a') (V3 'b'))) [('a',2),('b',5)]
 --    14
 -- ---------------------------------------------------------------------
@@ -93,17 +93,17 @@ data Expr3 = C3 Int
            deriving Show
                    
 -- ---------------------------------------------------------------------
--- Ejercicio 6. Definir la función sumas, tal que (sumas e) es el 
--- número de sumas en la expresión e. Por ejemplo, 
+-- Exercise 6. Define the function sumas, such that (sumas e) is the 
+-- number of additions in expression e. For example, 
 --    sumas (P3 (V3 'z') (S3 (C3 3) (V3 'x')))  ==  1
 --    sumas (S3 (V3 'z') (S3 (C3 3) (V3 'x')))  ==  2
 --    sumas (P3 (V3 'z') (P3 (C3 3) (V3 'x')))  ==  0
 -- ---------------------------------------------------------------------
                    
 -- ---------------------------------------------------------------------
--- Ejercicio 7. Definir la función sustitucion, tal que 
--- (sustitucion e s) es la expresión obtenida sustituyendo las variables 
--- de la expresión e según se indica en la sustitución s. Por ejemplo, 
+-- Exercise 7. Define the function sustitucion, such that 
+-- (sustitucion e s) is the expression obtained by substituting the
+-- variables of expression e according to substitution s. For example, 
 --    ghci> sustitucion (P3 (V3 'z') (S3 (C3 3) (V3 'x'))) [('x',7),('z',9)]
 --    P3 (C3 9) (S3 (C3 3) (C3 7))
 --    ghci> sustitucion (P3 (V3 'z') (S3 (C3 3) (V3 'y'))) [('x',7),('z',9)]
@@ -112,9 +112,9 @@ data Expr3 = C3 Int
 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 8. Definir la función reducible, tal que (reducible e) se 
--- verifica si e es una expresión reducible; es decir, contiene alguna 
--- operación en la que los dos operandos son números. Por ejemplo,
+-- Exercise 8. Define the function reducible, such that (reducible e)
+-- holds if e is a reducible expression; that is, it contains some
+-- operation in which both operands are numbers. For example,
 --    reducible (S3 (C3 3) (C3 4))               == True
 --    reducible (S3 (C3 3) (V3 'x'))             == False
 --    reducible (S3 (C3 3) (P3 (C3 4) (C3 5)))   == True
