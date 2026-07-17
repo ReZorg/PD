@@ -1,31 +1,31 @@
--- PD-Práctica 6.2
--- Árboles con tipos de datos algebráicos
--- Departamento de Ciencias de la Computación e I.A.
--- Universidad de Sevilla
+-- PD-Practice 6.2
+-- Binary trees with algebraic data types
+-- Department of Computer Science and A.I.
+-- University of Seville
 -- =====================================================================
 
 -- ---------------------------------------------------------------------
--- Introducción                                                       --
+-- Introduction                                                        --
 -- ---------------------------------------------------------------------
 
--- En esta relación se presenta ejercicios sobre árboles binarios
--- definidos como tipos de datos algebraicos.
+-- This module presents exercises on binary trees
+-- defined as algebraic data types.
 
 -- ---------------------------------------------------------------------
--- Nota. En los siguientes ejercicios se trabajará con los árboles
--- binarios definidos como sigue 
+-- Note. In the following exercises we will work with the binary trees
+-- defined as follows 
 --    data Arbol a = H a
 --                 | N a (Arbol a) (Arbol a)
 --                 deriving (Show, Eq)
--- Donde la H representa que es una Hoja, y la N es un nodo interior
--- Por ejemplo, el árbol
+-- Where H represents a Leaf, and N is an internal node
+-- For example, the tree
 --         9 
 --        / \
 --       /   \
 --      3     7
 --     / \  
 --    2   4 
--- se representa por
+-- is represented by
 --    N 9 (N 3 (H 2) (H 4)) (H 7) 
 -- ---------------------------------------------------------------------
 
@@ -34,9 +34,9 @@ data Arbol a = H a
              deriving (Show, Eq)
 
 -- ---------------------------------------------------------------------
--- Ejercicio 1.1. Definir la función
+-- Exercise 1.1. Define the function
 --    nHojas :: Arbol a -> Int
--- tal que (nHojas x) es el número de hojas del árbol x. Por ejemplo,
+-- such that (nHojas x) is the number of leaves of tree x. For example,
 --    nHojas (N 9 (N 3 (H 2) (H 4)) (H 7))  ==  3
 -- ---------------------------------------------------------------------
 
@@ -44,9 +44,9 @@ nHojas :: Arbol a -> Int
 nHojas = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 1.2. Definir la función
+-- Exercise 1.2. Define the function
 --    nNodos :: Arbol a -> Int
--- tal que (nNodos x) es el número de nodos del árbol x. Por ejemplo,
+-- such that (nNodos x) is the number of nodes of tree x. For example,
 --    nNodos (N 9 (N 3 (H 2) (H 4)) (H 7))  ==  2
 -- ---------------------------------------------------------------------
 
@@ -54,9 +54,9 @@ nNodos :: Arbol a -> Int
 nNodos = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 2.1. Definir la función
+-- Exercise 2.1. Define the function
 --    profundidad :: Arbol a -> Int
--- tal que (profundidad x) es la profundidad del árbol x. Por ejemplo,
+-- such that (profundidad x) is the depth of tree x. For example,
 --    profundidad (N 9 (N 3 (H 2) (H 4)) (H 7))              ==  2
 --    profundidad (N 9 (N 3 (H 2) (N 1 (H 4) (H 5))) (H 7))  ==  3
 --    profundidad (N 4 (N 5 (H 4) (H 2)) (N 3 (H 7) (H 4)))  ==  2
@@ -66,10 +66,10 @@ profundidad :: Arbol a -> Int
 profundidad = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 2.2. Definir la función
+-- Exercise 2.2. Define the function
 --    anadeHojas :: Arbol a -> a -> a -> Arbol a
--- tal que (anadeHojas a x y) añade a cada hoja del árbol a
--- dos hojas con los datos x e y. Por ejemplo,
+-- such that (anadeHojas a x y) adds to each leaf of tree a
+-- two leaves with data x and y. For example,
 --   anadeHojas (H 5) 0 10 == N 5 (H 0) (H 10)
 --   anadeHojas (N 7 (H 5) (H 9)) 1 4 == N 7 (N 5 (H 1) (H 4)) (N 9 (H 1) (H 4))
 -- ---------------------------------------------------------------------
@@ -78,12 +78,12 @@ anadeHojas :: Arbol a -> a -> a -> Arbol a
 anadeHojas = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 3.1. Definir la función
+-- Exercise 3.1. Define the function
 --    preorden :: Arbol a -> [a]
--- tal que (preorden x) es la lista correspondiente al recorrido
--- preorden del árbol x; es decir, primero visita la raíz del árbol, a
--- continuación recorre el subárbol izquierdo y, finalmente, recorre el
--- subárbol derecho. Por ejemplo,
+-- such that (preorden x) is the list corresponding to the preorder
+-- traversal of tree x; that is, first visits the root of the tree,
+-- then traverses the left subtree and, finally, the right subtree.
+-- For example,
 --    preorden (N 9 (N 3 (H 2) (H 4)) (H 7))  ==  [9,3,2,4,7]
 -- ---------------------------------------------------------------------
 
@@ -91,12 +91,11 @@ preorden :: Arbol a -> [a]
 preorden = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 3.2. Definir la función
+-- Exercise 3.2. Define the function
 --    inorden :: Arbol a -> [a]
--- tal que (inorden x) es la lista correspondiente al recorrido
--- inorden del árbol x; es decir, primero recorre el subárbol
--- izquierdo, a continuación la raíz, y finalmente el subárbol derecho. 
--- Por ejemplo,
+-- such that (inorden x) is the list corresponding to the inorder
+-- traversal of tree x; that is, first traverses the left subtree,
+-- then the root, and finally the right subtree. For example,
 --    inorden (N 9 (N 3 (H 2) (H 4)) (H 7))  ==  [2,3,4,9,7]
 -- ---------------------------------------------------------------------
 
@@ -104,12 +103,12 @@ inorden :: Arbol a -> [a]
 inorden = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 3.3. Definir la función
+-- Exercise 3.3. Define the function
 --    postorden :: Arbol a -> [a]
--- tal que (postorden x) es la lista correspondiente al recorrido
--- postorden del árbol x; es decir, primero recorre el subárbol
--- izquierdo, a continuación el subárbol derecho y, finalmente, la raíz
--- del árbol. Por ejemplo,
+-- such that (postorden x) is the list corresponding to the postorder
+-- traversal of tree x; that is, first traverses the left subtree,
+-- then the right subtree, and finally the root of the tree.
+-- For example,
 --    postorden (N 9 (N 3 (H 2) (H 4)) (H 7))  ==  [2,4,3,7,9]
 -- ---------------------------------------------------------------------
 
@@ -117,9 +116,9 @@ postorden :: Arbol a -> [a]
 postorden = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 4.1. Definir la función
+-- Exercise 4.1. Define the function
 --    espejo :: Arbol a -> Arbol a
--- tal que (espejo x) es la imagen especular del árbol x. Por ejemplo,
+-- such that (espejo x) is the mirror image of tree x. For example,
 --    espejo (N 9 (N 3 (H 2) (H 4)) (H 7)) == N 9 (H 7) (N 3 (H 4) (H 2))
 -- ---------------------------------------------------------------------
 
@@ -128,16 +127,16 @@ espejo = undefined
 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 5.1. La función take está definida por
+-- Exercise 5.1. The take function is defined by
 --    take :: Int -> [a] -> [a]
 --    take 0            = []
 --    take (n+1) []     = []
 --    take (n+1) (x:xs) = x : take n xs
 -- 
--- Definir la función 
+-- Define the function 
 --    takeArbol ::  Int -> Arbol a -> Arbol a
--- tal que (takeArbol n t) es el subárbol de t de profundidad n. Por
--- ejemplo,
+-- such that (takeArbol n t) is the subtree of t of depth n. For
+-- example,
 --    takeArbol 0 (N 9 (N 3 (H 2) (H 4)) (H 7)) == H 9
 --    takeArbol 1 (N 9 (N 3 (H 2) (H 4)) (H 7)) == N 9 (H 3) (H 7)
 --    takeArbol 2 (N 9 (N 3 (H 2) (H 4)) (H 7)) == N 9 (N 3 (H 2) (H 4)) (H 7)
@@ -148,18 +147,18 @@ takeArbol :: Int -> Arbol a -> Arbol a
 takeArbol = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 6.1. La función
+-- Exercise 6.1. The function
 --    repeat :: a -> [a]
--- está definida de forma que (repeat x) es la lista formada por
--- infinitos elementos x. Por ejemplo,
+-- is defined so that (repeat x) is the list of infinitely many x
+-- elements. For example,
 --    repeat 3  ==  [3,3,3,3,3,3,3,3,3,3,3,3,3,...
--- La definición de repeat es
+-- The definition of repeat is
 --    repeat x = xs where xs = x:xs
 -- 
--- Definir la función
+-- Define the function
 --    repeatArbol :: a -> Arbol a
--- tal que (repeatArbol x) es es árbol con infinitos nodos x. Por
--- ejemplo, 
+-- such that (repeatArbol x) is the tree with infinitely many x nodes.
+-- For example, 
 --    takeArbol 0 (repeatArbol 3) == H 3
 --    takeArbol 1 (repeatArbol 3) == N 3 (H 3) (H 3)
 --    takeArbol 2 (repeatArbol 3) == N 3 (N 3 (H 3) (H 3)) (N 3 (H 3) (H 3))
@@ -169,18 +168,18 @@ repeatArbol :: a -> Arbol a
 repeatArbol x = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 6.2. La función 
+-- Exercise 6.2. The function 
 --    replicate :: Int -> a -> [a]
--- está definida por 
+-- is defined by 
 --    replicate n = take n . repeat
--- es tal que (replicate n x) es la lista de longitud n cuyos elementos
--- son x. Por ejemplo,
+-- such that (replicate n x) is the list of length n whose elements
+-- are x. For example,
 --    replicate 3 5  ==  [5,5,5]
 -- 
--- Definir la función 
+-- Define the function 
 --    replicateArbol :: Int -> a -> Arbol a
--- tal que (replicate n x) es el árbol de profundidad n cuyos nodos son
--- x. Por ejemplo,
+-- such that (replicateArbol n x) is the tree of depth n whose nodes are
+-- x. For example,
 --    replicateArbol 0 5  ==  H 5
 --    replicateArbol 1 5  ==  N 5 (H 5) (H 5)
 --    replicateArbol 2 5  ==  N 5 (N 5 (H 5) (H 5)) (N 5 (H 5) (H 5))
@@ -190,10 +189,10 @@ replicateArbol :: Int -> a -> Arbol a
 replicateArbol n = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 7.1. Definir la función
+-- Exercise 7.1. Define the function
 --    mapArbol :: (a -> a) -> Arbol a -> Arbol a
--- tal que (mapArbol f x) es el árbol obtenido aplicándole a cada nodo de
--- x la función f. Por ejemplo,
+-- such that (mapArbol f x) is the tree obtained by applying f to
+-- each node of x. For example,
 --    ghci> mapArbol (*2) (N 9 (N 3 (H 2) (H 4)) (H 7)) 
 --    N 18 (N 6 (H 4) (H 8)) (H 14)
 -- ---------------------------------------------------------------------
@@ -202,14 +201,14 @@ mapArbol :: (a -> a) -> Arbol a -> Arbol a
 mapArbol = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 8. Se consideran los árboles con operaciones booleanas
--- definidos por   
+-- Exercise 8. Consider trees with boolean operations
+-- defined by   
 --    data ArbolB = HB Bool 
 --                | Conj ArbolB ArbolB
 --                | Disy ArbolB ArbolB
 --                | Neg ArbolB
 -- 
--- Por ejemplo, los árboles
+-- For example, the trees
 --                Conj                            Conj          
 --               /   \                           /   \          
 --              /     \                         /     \         
@@ -219,7 +218,7 @@ mapArbol = undefined
 --       /  \    |     |                 /  \    |     |        
 --    True False False False          True False True  False     
 --
--- se definen por
+-- are defined by
 --    ej1, ej2:: ArbolB
 --    ej1 = Conj (Disy (Conj (HB True) (HB False))
 --                     (Neg (HB False)))
@@ -231,10 +230,10 @@ mapArbol = undefined
 --               (Conj (Neg (HB False))
 --                     (HB True))
 -- 
--- Definir la función 
+-- Define the function 
 --    valorB :: ArbolB -> Bool
--- tal que (valorB ar) es el resultado de procesar el árbol realizando
--- las operaciones booleanas especificadas en los nodos. Por ejemplo,
+-- such that (valorB ar) is the result of processing the tree by
+-- performing the boolean operations specified at the nodes. For example,
 --    valorB ej1 == True
 --    valorB ej2 == False
 -- ---------------------------------------------------------------------
@@ -259,11 +258,11 @@ valorB:: ArbolB -> Bool
 valorB = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 9. Los árboles generales se pueden representar mediante el
--- siguiente tipo de dato  
+-- Exercise 9. General trees can be represented using the
+-- following data type  
 --    data ArbolG a = N a [ArbolG a]
 --                  deriving (Eq, Show)
--- Por ejemplo, los árboles
+-- For example, the trees
 --      1               3               3
 --     / \             /|\            / | \
 --    2   3           / | \          /  |  \
@@ -274,7 +273,7 @@ valorB = undefined
 --                                    2   3
 --                                        |
 --                                        4
--- se representan por
+-- are represented by
 --    ejG1, ejG2, ejG3 :: ArbolG Int
 --    ejG1 = N 1 [N 2 [],N 3 [N 4 []]]
 --    ejG2 = N 3 [N 5 [N 6 []], 
@@ -284,11 +283,11 @@ valorB = undefined
 --               N 4 [N 1 [N 2 [],N 3 [N 4 []]]], 
 --               N 7 [N 2 [], N 1 []]]
 -- 
--- Definir la función
+-- Define the function
 --     ramifica :: ArbolG a -> ArbolG a -> (a -> Bool) -> ArbolG a
--- tal que (ramifica a1 a2 p) el árbol que resulta de añadir una copia
--- del árbol a2 a los nodos de a1 que cumplen un predicado p. Por
--- ejemplo, 
+-- such that (ramifica a1 a2 p) is the tree resulting from adding a copy
+-- of tree a2 to the nodes of a1 that satisfy predicate p. For
+-- example, 
 --    ramifica ejG1 (NG 8 []) (>4) =>  NG 1 [NG 2 [],NG 3 [NG 4 []]]
 --    ramifica ejG1 (NG 8 []) (>3) =>  NG 1 [NG 2 [],NG 3 [NG 4 [NG 8 []]]]
 --    ramifica ejG1 (NG 8 []) (>2) =>  NG 1 [NG 2 [],NG 3 [NG 4 [NG 8 []],NG 8 []]]
@@ -312,9 +311,9 @@ ramifica :: ArbolG a -> ArbolG a -> (a -> Bool) -> ArbolG a
 ramifica = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 10. Definir la función
+-- Exercise 10. Define the function
 --    nHojasG :: ArbolG a -> Int
--- tal que (nHojas x) es el número de hojas del árbol x. Por ejemplo,
+-- such that (nHojasG x) is the number of leaves of tree x. For example,
 --    nHojasG ejG1  ==  2
 --    nHojasG ejG2  ==  4
 --    nHojasG ejG3  ==  5
@@ -324,9 +323,9 @@ nHojasG :: ArbolG a -> Int
 nHojasG = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 11. Definir la función
---    profundidad :: ArbolG a -> Int
--- tal que (profundidadG x) es la profundidad del árbol x. Por ejemplo,
+-- Exercise 11. Define the function
+--    profundidadG :: ArbolG a -> Int
+-- such that (profundidadG x) is the depth of tree x. For example,
 --    profundidadG ejG1  ==  2
 --    profundidadG ejG2  ==  2
 --    profundidadG ejG3  ==  4
@@ -336,11 +335,11 @@ profundidadG :: ArbolG a -> Int
 profundidadG = undefined
 
 -- ---------------------------------------------------------------------
--- Ejercicio 12. Definir la función
+-- Exercise 12. Define the function
 --    bin2gen :: ArbolG a -> Int
--- tal que (bin2gen x) es la traducción del árbol x definido con el tipo
--- "Arbol" (es decir, árbol binario) a "ArbolG" (es decir, árbol
--- genérico). Por ejemplo,
+-- such that (bin2gen x) is the translation of tree x defined with type
+-- "Arbol" (i.e., binary tree) to "ArbolG" (i.e., general tree).
+-- For example,
 --    bin2gen (N 9 (N 3 (H 2) (H 4)) (H 7)) ==  (NG 9 [NG 3 [NG 2 [],NG 4 []], NG 7 []])
 -- ---------------------------------------------------------------------
 

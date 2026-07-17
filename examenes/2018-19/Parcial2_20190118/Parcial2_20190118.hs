@@ -1,20 +1,20 @@
--- Programación Declarativa
--- Grado de Ingeniería Informática - Tecnologías Informáticas
--- Parcial 2                                       17 de Enero de 2019
+-- Declarative Programming
+-- Degree in Computer Engineering - Information Technologies
+-- Midterm 2                                       January 17, 2019
 -- -------------------------------------------------------------------
--- Apellidos:
--- Nombre:
+-- Surnames:
+-- Name:
 -- -------------------------------------------------------------------
--- AVISOS IMPORTANTES
--- · Antes de continuar, cambie el nombre de este archivo por:
+-- IMPORTANT NOTICES
+-- · Before continuing, change the name of this file to:
 --                   Parcial2_<uvus>.hs
---   donde <uvus> debe ser su usuario virtual.
--- · Escriba la solución de cada ejercicio en el hueco reservado para
---   ello.
--- · Asegúrese de utilizar correctamente el nombre y el tipo indicado
---   para cada función solicitada. Puede añadir tantas funciones
---   auxiliares (incluyendo el tipo adecuadamente) como necesite,
---   describiendo su objetivo.
+--   where <uvus> must be your virtual username.
+-- · Write the solution to each exercise in the space reserved for
+--   it.
+-- · Make sure you correctly use the name and type indicated
+--   for each requested function. You may add as many helper
+--   functions (including the type properly) as you need,
+--   describing their purpose.
 -- -------------------------------------------------------------------
 
 import Text.CSV
@@ -23,90 +23,90 @@ import Data.Matrix
 import System.Environment (getArgs)
 
 -- -------------------------------------------------------------------
--- Ejercicio 1. [1,75 ptos]
--- En relación con el juego del cuatro en raya...
+-- Exercise 1. [1,75 points]
+-- Regarding the connect four game...
 --
--- 1. Defina los tipos siguientes:
---    * Un nuevo tipo de datos Ficha, que indique ficha Roja o Azul.
---    * Un tipo Columna, sinónimo de una lista de fichas.
---    * Un nuevo tipo de datos CuatroEnRaya,
---      con un constructor de lista de columnas.
--- 2. Defina la función colocaFicha, que reciba una ficha, el número de
---    columna en la que colocar la ficha (empezando en 1) y un tablero
---    de tipo 4 en raya, y devuelva el tablero actualizado.
+-- 1. Define the following types:
+--    * A new data type Ficha, indicating a Red or Blue piece.
+--    * A type Columna, synonym for a list of pieces.
+--    * A new data type CuatroEnRaya,
+--      with a list-of-columns constructor.
+-- 2. Define the function colocaFicha, which receives a piece, the number of
+--    the column in which to place the piece (starting at 1) and a board
+--    of type connect four, and returns the updated board.
 --
 -- ---------------------------------------------------------------------
 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 2. [1,75 ptos]
--- Se plantea la necesidad de trabajar con árboles que adopten tipos
--- flexibles. Para ello:
+-- Exercise 2. [1,75 points]
+-- There is a need to work with trees that adopt
+-- flexible types. To do this:
 --
--- 1. Defina un tipo polimórfico de árbol que acepte tres tipos de datos
--- cualesquiera (posiblemente distintos) y admita dos constructores:
---    * Uno para nodos, que reciba un elemento de tipo par de a y b,
---      y tres árboles hijos del mismo tipo del padre
---    * Otro para hojas, que contengan un lemento de tipo par de a y c
--- 2. Defina la función devuelveValidos, que reciba un predicado p y un
---    árbol de tipos, y devuelva un par de listas, la primera conteniendo
---    los datos de tipo b de los nodos que cumplan p y
---    la segunda de tipo c de las hojas que no cumplan p
+-- 1. Define a polymorphic tree type that accepts any three data types
+-- (possibly different) and admits two constructors:
+--    * One for nodes, which receives an element of pair type a and b,
+--      and three child trees of the same type as the parent
+--    * Another for leaves, which contain an element of pair type a and c
+-- 2. Define the function devuelveValidos, which receives a predicate p and a
+--    tree of types, and returns a pair of lists, the first containing
+--    the data of type b from the nodes that satisfy p and
+--    the second of type c from the leaves that do not satisfy p
 --
 -- ---------------------------------------------------------------------
 
 
 -- -------------------------------------------------------------------
--- Ejercicio 3. [2 ptos]
+-- Exercise 3. [2 points]
 
--- 1. Defina, con sintaxis de registro, un nuevo tipo que contenga la
---    información sobre planetas que aparecen en las películas
---    de star wars:
---    * name, diameter, population, de tipo String
---    * residents, de tipo lista de String
+-- 1. Define, with record syntax, a new type that contains the
+--    information about planets that appear in the
+--    Star Wars movies:
+--    * name, diameter, population, of type String
+--    * residents, of type list of String
 
--- 2. Haga que el tipo anterior disponga de un valor por defecto,
--- de modo que podamos posteriormente crear elementos del tipo
--- sin necesidad de proporcionar todos los datos solicitados
+-- 2. Make the previous type have a default value,
+-- so that we can later create elements of the type
+-- without needing to provide all the requested data
 
--- 3. Defina un tipo sinónimo de una lista de planetas
+-- 3. Define a type synonym for a list of planets
 
--- 4. Realice un programa principal que:
---    a) Importe el archivo "planets.json",
---    b) Para cada planeta, imprima por pantalla su nombre,
---       seguido de su radio (la mitad de su diámetro)
---    ** Nota: si no puede resolver este apartado,
---             puede optar por un ejercicio simplificado,
---             por 1.5 puntos, que en lugar de "planets.json"
---             procese "planet.json", conteniendo un único
---             planeta, y devolviendo el nombre del mismo
---             junto con el número de residentes ilustres
---             (ver residents)
+-- 4. Write a main program that:
+--    a) Imports the file "planets.json",
+--    b) For each planet, prints on screen its name,
+--       followed by its radius (half of its diameter)
+--    ** Note: if you cannot solve this part,
+--             you may choose a simplified exercise,
+--             for 1.5 points, that instead of "planets.json"
+--             processes "planet.json", containing a single
+--             planet, and returns its name
+--             along with the number of notable residents
+--             (see residents)
 -- -------------------------------------------------------------------
 
 
 -----------------------------------------------------------------------
--- Ejercicio 4. [1 pto]
+-- Exercise 4. [1 point]
 --
--- El siguiente programa carga el contenido del fichero "cars-2018.csv",
--- lo parsea y posteriormente procesa cabecera y cuerpo, que
--- en este momento se encuentran sin implementar.
+-- The following program loads the contents of the file "cars-2018.csv",
+-- parses it and then processes header and body, which
+-- at this moment are unimplemented.
 
--- Se pide la siguiente implementación para dichas funciones:
--- a) Procesar la cabecera, imprimiento por cada campo de la misma
---    su número y línea, de la siguiente forma:
+-- The following implementation is requested for those functions:
+-- a) Process the header, printing for each of its fields
+--    its number and line, in the following form:
 --    1: "year"
 --    2: "make"
 --    ...
 --
---   * Nota: por la mitad de la nota, puede imprimir únicamente
---            el nombre del campo.
+--   * Note: for half credit, you may print only
+--            the field name.
 --
--- b) Procesar los 20 primeros registros, imprimiendo por cada uno el año,
---    marca, modelo y el número de estilos principales
+-- b) Process the first 20 records, printing for each one the year,
+--    make, model and number of main styles
 --    
---   * Nota: por la mitad de la nota, puede limitarse a
---           procesar todos los registros e imprimir año, marca y modelo
+--   * Note: for half credit, you may limit yourself to
+--           processing all records and printing year, make and model
 --          
 -----------------------------------------------------------------------
 
@@ -128,56 +128,56 @@ coches = do
 procesaCabecera = undefined
 procesaContenido = undefined
 
--- Función de ayuda:
+-- Helper function:
 pasaALista :: Field -> [String]
 pasaALista cadena = read cadena::[String]
 
 -- ---------------------------------------------------------------------
--- Ejercicio 5. [1,5 ptos]
--- Se denomina matriz dispersa aquella cuyos elementos son 
--- mayoritariamente nulos. La representación de matrices dispersas se
--- suele realizar de forma densa, es decir, dejando los elementos no
--- nulos pero anotando en qué posición original estaban. En este ejercicio
--- se pide construir la representación densa de una matriz p como sigue:
---   - una matriz q de nxm', donde n es el número de filas de p y m'
---     es el mayor número de elementos no nulos de las filas de p. Por
---     ejemplo, m' de matrizEj es 2, ya que la segunda fila tiene 2
---     elementos no nulos.
---   - los elementos de la matriz q son pares (Int,Double), donde el
---     primero del par es la columna donde aparecía el elemento, y el
---     segundo es el elemento en sí. Si la columna tiene menos elementos
---     no nulos que m', entonces se rellena con pares (0,0.0).
+-- Exercise 5. [1,5 points]
+-- A sparse matrix is one whose elements are
+-- mostly zero. The representation of sparse matrices is
+-- usually made in dense form, that is, leaving the nonzero elements
+-- but recording in which original position they were. In this exercise
+-- it is requested to build the dense representation of a matrix p as follows:
+--   - a matrix q of nxm', where n is the number of rows of p and m'
+--     is the greatest number of nonzero elements in the rows of p. For
+--     example, m' for matrizEj is 2, since the second row has 2
+--     nonzero elements.
+--   - the elements of matrix q are pairs (Int,Double), where the
+--     first of the pair is the column where the element appeared, and the
+--     second is the element itself. If the column has fewer
+--     nonzero elements than m', then it is filled with pairs (0,0.0).
 -- ---------------------------------------------------------------------
 
 matrizEj :: Matrix Double
 matrizEj = fromLists [[0.0,0.0,2.1],[1.6,0.0,-2.5],[0.5,0.0,0.0]]
 
--- Ejercicio 5.1. Definir la función (colsNoNulas i p), tal que devuelva
--- una lista de pares (j,v) por cada valor v no nulo en la fila i, siendo
--- j la columna donde aparece. Por ejemplo,
+-- Exercise 5.1. Define the function (colsNoNulas i p), such that it returns
+-- a list of pairs (j,v) for each nonzero value v in row i, where
+-- j is the column where it appears. For example,
 --   colsNoNulas 2 matrizEj == [(1,1.6),(3,-2.5)]
 
 
--- Ejercicio 5.2. Definir la función (completaLista n xs x), tal que 
--- devuelva una lista con n elementos, incluyendo primero los de xs,
--- y rellenando el resto con x. Por ejemplo,
+-- Exercise 5.2. Define the function (completaLista n xs x), such that
+-- it returns a list with n elements, first including those of xs,
+-- and filling the rest with x. For example,
 --   completaLista 5 [3,4,2] 0 == [3,4,2,0,0]
 
 
--- Ejercicio 5.3. Definir la función (matrizDensa p), tal que devuelva
--- la matriz con representación densa, descrita anteriormente, de p.
--- Por ejemplo, toLists (matrizDensa matrizEj) ==
+-- Exercise 5.3. Define the function (matrizDensa p), such that it returns
+-- the matrix with dense representation, described above, of p.
+-- For example, toLists (matrizDensa matrizEj) ==
 --      [[(3,2.1),(0,0.0)],[(1,1.6),(3,-2.5)],[(1,0.5),(0,0.0)]]
 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 6. [1 pto]
--- Representamos las pilas mediante el TAD definido en el fichero
--- incluido en la cabecera del enunciado. Empleando solo las funciones
--- del TAD (sin convertir los datos a listas), definir la función
--- (ultimoElemPila p pila), que devuelva justamente el último elemento de
--- la pila que cumpla el predicado p, o Nothing si ninguno lo cumple.
--- Por ejemplo,
+-- Exercise 6. [1 point]
+-- We represent stacks using the ADT defined in the file
+-- included in the statement header. Using only the functions
+-- of the ADT (without converting the data to lists), define the function
+-- (ultimoElemPila p pila), which returns exactly the last element of
+-- the stack that satisfies predicate p, or Nothing if none satisfies it.
+-- For example,
 --   ultimoElemPila even ejPila == Just 10
 --   ultimoElemPila odd ejPila == Nothing
 --   ultimoElemPila (<5) ejPila == Just 4
@@ -187,25 +187,25 @@ ejPila = foldr apila vacia [2,4,6,8,10]
 
 
 -- ---------------------------------------------------------------------
--- Ejercicio 7.1 [0.5 ptos]
--- Un número entero n es libre de cuadrados si no existe un número primo
--- p tal que p^2 divide a n. Por ejemplo, 10 es libre de cuadrado porque
--- 10 = 2*5, pero 12 no lo es porque es divisible entre 2^2. Definir
--- la función (libresDeCuadrado m) que devuelva la lista de booleanos
--- que indique para cada número entre el 1 y m si es libre de cuadrado.
--- Por ejemplo,
+-- Exercise 7.1 [0.5 points]
+-- An integer n is square-free if there is no prime number
+-- p such that p^2 divides n. For example, 10 is square-free because
+-- 10 = 2*5, but 12 is not because it is divisible by 2^2. Define
+-- the function (libresDeCuadrado m) that returns the list of booleans
+-- indicating for each number between 1 and m whether it is square-free.
+-- For example,
 --   libresDeCuadrado 10 ==
 --          [True,True,True,False,True,True,True,False,False,True]
 
 
--- Ejercicio 7.2 [0.5 ptos] Paralelizar la definición de libresDeCuadrado
--- empleando la función parallel map vista en teoría. Indicar en un
--- comentario cuál es el speedup alcanzado cuando se compara la versión
--- secuencial (anterior) y paralela (aquí solicitada) con m=5000.
+-- Exercise 7.2 [0.5 points] Parallelize the definition of libresDeCuadrado
+-- using the parallel map function seen in theory. Indicate in a
+-- comment what speedup is achieved when comparing the
+-- sequential version (previous) and parallel version (requested here) with m=5000.
 
 
 
--- Nota: emplear esta función main para comprobar cada versión
+-- Note: use this main function to check each version
 {-main = do
     let oxs = parLibresDeCuadrado 5000 
     print $ length $ filter (\a -> a) oxs

@@ -1,23 +1,23 @@
--- Programación Declarativa
--- Grado de Ingeniería Informática - Tecnologías Informáticas
--- Examen Diciembre                                   17 de Diciembre de 2019
+-- Declarative Programming
+-- Degree in Computer Engineering - Information Technologies
+-- December Exam                                      December 17, 2019
 -- --------------------------------------------------------------------------
--- Apellidos:
--- Nombre:
+-- Surnames:
+-- Name:
 -- UVUS:
 -- --------------------------------------------------------------------------
--- AVISOS IMPORTANTES
--- · 1. Antes de continuar, cambie el nombre de este archivo por:
+-- IMPORTANT NOTICES
+-- · 1. Before continuing, change the name of this file to:
 --                   diciembre_<uvus>.hs
---   donde <uvus> debe ser su usuario virtual.
--- · 2. Por favor, entregue un fichero que cargue correctamente, dejando
---   comentado todo código con errores.
--- · 3. Escriba la solución de cada ejercicio en el hueco reservado para
---   ello.
--- · 4. Asegúrese de utilizar correctamente el nombre y el tipo indicado
---   para cada función solicitada. Puede añadir tantas funciones
---   auxiliares (incluyendo el tipo adecuadamente) como necesite,
---   describiendo su objetivo.
+--   where <uvus> must be your virtual username.
+-- · 2. Please submit a file that loads correctly, leaving
+--   all code with errors commented out.
+-- · 3. Write the solution to each exercise in the space reserved for
+--   it.
+-- · 4. Make sure you correctly use the name and type indicated
+--   for each requested function. You may add as many helper
+--   functions (including the type properly) as you need,
+--   describing their purpose.
 -- --------------------------------------------------------------------------
 
 {-# LANGUAGE OverloadedStrings #-}
@@ -33,13 +33,13 @@ import TADPila
 
 
 -- --------------------------------------------------------------------------
--- Ejercicio 1. [2 ptos]
+-- Exercise 1. [2 points]
 -- --------------------------------------------------------------------------
--- La función extremosCumplen recibe un predicado p, una función f y
--- una lista de listas xss, y devuelve una lista de pares de elementos
--- tal que, para cada lista de la lista de listas original, devuelva el par de
--- elementos resultantes de aplicar la función indicada sobre el menor y
--- mayor elemento que cumpla el predicado. Veámoslo a través de ejemplos:
+-- The function extremosCumplen receives a predicate p, a function f and
+-- a list of lists xss, and returns a list of pairs of elements
+-- such that, for each list in the original list of lists, it returns the pair of
+-- elements resulting from applying the indicated function to the smallest and
+-- largest element that satisfies the predicate. Let's see it through examples:
 
 --  λ> extremosCumplen even (^2) [[1..5],[(-9)..(-1)]]
 --     [(4,16),(64,4)]
@@ -50,13 +50,13 @@ import TADPila
 --                      ["tres", "tristes", "tigres"]]
 --     [("pac","poc"),("tig","tri")]
 
--- En definitiva, se pide definir la función anterior usando
--- distintas técnicas como núcleo de su solución:
---  a) Listas por comprensión: extremosCumplenL
---  b) Recursión no final: extremosCumplenR
---  c) Recursión con acumulador: extremosCumplenR2
---  d) Funciones de orden superior distintas de plegado: extremosCumplenO
---  e) Plegado: extremosCumplenP
+-- In short, it is requested to define the previous function using
+-- different techniques as the core of its solution:
+--  a) List comprehensions: extremosCumplenL
+--  b) Non-tail recursion: extremosCumplenR
+--  c) Recursion with an accumulator: extremosCumplenR2
+--  d) Higher-order functions other than folding: extremosCumplenO
+--  e) Folding: extremosCumplenP
 
 extremosCumplenL = undefined
 extremosCumplenR = undefined
@@ -67,45 +67,45 @@ extremosCumplenP = undefined
 
 
 -- --------------------------------------------------------------------------
--- Ejercicio 2. [2 ptos]
+-- Exercise 2. [2 points]
 -- --------------------------------------------------------------------------
--- 1. Defina, con sintaxis de registro, los tipos necesarios para almacenar
---    la información sobre personajes de Star Wars contenida en el
---    archivo personajes.json, ignorando aquellos datos que no son requeridos
---    para los apartados siguientes.
+-- 1. Define, with record syntax, the types needed to store
+--    the information about Star Wars characters contained in the
+--    file personajes.json, ignoring data that is not required
+--    for the following parts.
 --
--- Nota: tenga en cuenta que los personajes se encuentran en un array dentro
---       de un campo de un objeto superior.
+-- Note: keep in mind that the characters are in an array inside
+--       a field of a higher-level object.
 --
--- 2. Atribuya valores por defecto a los campos considerados.
+-- 2. Assign default values to the considered fields.
 --
--- 3. Realice un programa principal que:
---    a) Importe el archivo "personajes.json",
---    b) Indique el número total de personajes devuelto por la API
---    c) Para cada personaje, imprima por pantalla su nombre, altura, peso,
---       y número de películas en las que aparece
---    d) Indique el nombre y la estatura del personaje más alto devuelto.
+-- 3. Write a main program that:
+--    a) Imports the file "personajes.json",
+--    b) Indicates the total number of characters returned by the API
+--    c) For each character, prints on screen their name, height, weight,
+--       and number of films in which they appear
+--    d) Indicates the name and height of the tallest character returned.
 -- -------------------------------------------------------------------
 
 
 -- --------------------------------------------------------------------------
--- Ejercicio 3. [2 ptos]
+-- Exercise 3. [2 points]
 -- --------------------------------------------------------------------------
--- Un árbol binario se puede codificar asociando valores tan solo en las
--- hojas. Se pide,
---  a) Definir el tipo de dato algebraico del árbol binario polimórfico con
--- valores solo en las hojas. Este tipo de ser imprimible e igualable.
+-- A binary tree can be encoded by associating values only in the
+-- leaves. It is requested:
+--  a) Define the algebraic data type of the polymorphic binary tree with
+-- values only in the leaves. This type must be printable and equatable.
 
-{--- Descomente este bloque una vez defina el tipo Arbol
+{--- Uncomment this block once you define the Arbol type
 ejar1 :: Arbol Int
 ejar1 = (N (H 1) (N (N (H 1) (H 2)) (H 1)))
 -}
 
---  b) Definir la función (elemNivel a x), tal que determine el nivel menos
---  profundo donde suceda x. La raíz cuenta como nivel 0, sus hijos el nivel 1,
---  etc. Esta función debe devolver un Maybe, ya que si el elemento no se
---  encuentra, devuelve Nothing. Si lo encuentra, devuelve simplemene el nivel.
---  Por ejemplo,
+--  b) Define the function (elemNivel a x), such that it determines the shallowest
+--  level where x occurs. The root counts as level 0, its children as level 1,
+--  etc. This function must return a Maybe, since if the element is not
+--  found, it returns Nothing. If it is found, it simply returns the level.
+--  For example,
 --    λ> ejar1
 --       N (H 1) (N (N (H 1) (H 2)) (H 1))
 --    λ> elemNivel ejar1 2
@@ -120,22 +120,22 @@ elemNivel = undefined
 
 
 -- --------------------------------------------------------------------------
--- Ejercicio 4. [2 ptos]
+-- Exercise 4. [2 points]
 -- --------------------------------------------------------------------------
--- En el problema de las torres de Hanoi se consideran tres varillas donde se
--- apilan discos de distinto tamaño. Una forma de codificar las varillas es
--- el emplear el tipo de dato abstracto pila con enteros, donde cada entero
--- indica el tamaño del disco (de menor a mayor)
+-- In the towers of Hanoi problem, three rods are considered where
+-- disks of different sizes are stacked. One way to encode the rods is
+-- to use the abstract data type stack with integers, where each integer
+-- indicates the disk size (from smallest to largest)
 
 ejp1, ejp2, ejp3 :: Pila Int
 ejp1 = foldr apila vacia [4,5,7,10]
 ejp2 = foldr apila vacia [1,2,3,6,8,9]
 ejp3 = foldr apila vacia [4,5,1,2]
 
--- Se pide:
---  a) Definir la función (comprueba p), donde p es una pila que codifica una
---  varilla de discos, y compruebe si la varilla es correcta; es decir, que
---  ningún disco tenga por encima otro de mayor tamaño. Por ejemplo,
+-- It is requested:
+--  a) Define the function (comprueba p), where p is a stack that encodes a
+--  rod of disks, and check whether the rod is correct; that is, that
+--  no disk has a larger one above it. For example,
 --   λ> comprueba ejp2
 --      True
 --   λ> comprueba ejp3
@@ -143,11 +143,11 @@ ejp3 = foldr apila vacia [4,5,1,2]
 
 comprueba = undefined
 
---  b) Definir la función (transfiere n p1 p2), donde p1 y p2 son dos varillas
---  con discos, n es un número natural, y devuelva el resultado de apilar en p2
---  los primeros n discos de p1, manteniendo el orden; es decir, asume que se
---  puede coger más de un dico a la vez y moverlos a la segunda varilla. Por
---  ejemplo, 
+--  b) Define the function (transfiere n p1 p2), where p1 and p2 are two rods
+--  with disks, n is a natural number, and it returns the result of stacking in p2
+--  the first n disks of p1, keeping the order; that is, assume that it is
+--  possible to take more than one disk at a time and move them to the second rod. For
+--  example,
 -- λ> transfiere 3 ejp2 ejp1
 -- 1|2|3|4|5|7|10|-
 -- λ> transfiere 9 ejp2 ejp1
@@ -158,17 +158,17 @@ transfiere = undefined
 
 
 -- --------------------------------------------------------------------------
--- Ejercicio 5. [2 ptos]
+-- Exercise 5. [2 points]
 -- --------------------------------------------------------------------------
--- Representamos el tablero del ajedrez con una matriz donde los elementos son
--- del tipo Pieza. Este tipo tiene como posibles valores: V, C, T, A, P, RY y
--- RA, que significan vacío, caballo, torre, alfil, peón, rey y reina,
--- respectivamente. Se pide:
---   a) Definir el nuevo tipo de datos Pieza para que los ejemplos ejm1 y ejm2
--- se puedan cargar correctamente una vez descomentados. Aplica las
--- derivaciones necesarias para poder utilizarlo en el resto de ejercicios.
+-- We represent the chessboard with a matrix where the elements are
+-- of type Pieza. This type has as possible values: V, C, T, A, P, RY and
+-- RA, which mean empty, knight, rook, bishop, pawn, king and queen,
+-- respectively. It is requested:
+--   a) Define the new data type Pieza so that examples ejm1 and ejm2
+-- can be loaded correctly once uncommented. Apply the
+-- necessary derivations to be able to use it in the rest of the exercises.
 
-{--- Descomente este bloque una vez defina el tipo Pieza
+{--- Uncomment this block once you define the Pieza type
 ejm1 :: Matrix Pieza
 ejm1 = fromLists [[V, V, V, V],
                   [C, V, C, V],
@@ -182,9 +182,9 @@ ejm2 = fromLists [[V, V, V, V],
                   [V, V,RA, T]]
 -}
 
---   b) Definir la función (jaquecaballo m), que compruebe si en el tablero
---   codificado en la matriz m existe algún caballo dando jaque al rey. Por
---   ejemplo,
+--   b) Define the function (jaquecaballo m), which checks whether on the board
+--   encoded in matrix m there is any knight giving check to the king. For
+--   example,
 --    λ> jaquecaballo ejm1
 --       True
 --    λ> jaquecaballo ejm2
@@ -193,4 +193,3 @@ ejm2 = fromLists [[V, V, V, V],
 jaquecaballo = undefined
 
 -- --------------------------------------------------------------------------
-

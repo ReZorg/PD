@@ -1,10 +1,10 @@
 -- -----------------------------------------------------------------------------
--- Programación Declarativa 2021/22
--- Grado de Ingeniería Informática - Tecnologías Informáticas
--- Enero (primera convocatoria)                              25 de Enero de 2022
+-- Declarative Programming 2021/22
+-- Degree in Computer Engineering - Information Technologies
+-- January (first sitting)                              January 25, 2022
 -- -----------------------------------------------------------------------------
--- Apellidos:
--- Nombre:
+-- Surnames:
+-- Name:
 -- UVUS:
 -- -----------------------------------------------------------------------------
 
@@ -14,27 +14,27 @@ import Data.List
 import Data.Array
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 1.1 (2,5 puntos)
--- Dada dos cadenas de texto as y bs, define la función (convertir as bs) que
--- convierta la cadena as en la bs. Para ello se consideran tan solo dos 
--- operaciones posibles:
---    1. eliminar la última letra de la cadena as. 
---    2. agregar una letra al final de la cadena as.
--- La función debe devolver la lista de operaciones necesarias para realizar la 
--- conversión. Por ejemplo:
+-- Exercise 1.1 (2,5 puntos)
+-- Given two chains of text ace and bs, defines the function (convertir as bs) that
+-- convert the chain ace in the bs. For this consider  so alone two 
+-- possible operations:
+--    1. delete The last letter of the chain ace. 
+--    2. add A letter at the end of the chain ace.
+-- The function has to give the list of necessary operations to make the 
+-- conversion. For example:
 --
 -- > convertir "" "hola"
--- ["agregar h","agregar o","agregar l","agregar a"]
+-- ["add h","add o","add l","add a"]
 -- > convertir "hola que tal" "hola"
--- ["eliminar","eliminar","eliminar","eliminar","eliminar","eliminar","eliminar","eliminar"]
+-- ["delete","delete","delete","delete","delete","delete","delete","delete"]
 -- > convertir "holitas" "hola"
--- ["eliminar","eliminar","eliminar","eliminar","agregar a"]
+-- ["delete","delete","delete","delete","add a"]
 -- > convertir "hotla" "hola"
--- ["eliminar","eliminar","eliminar","agregar l","agregar a"
+-- ["delete","delete","delete","add l","add a"
 -- > convertir "aaa" "ba"    
--- ["eliminar","eliminar","eliminar","agregar b","agregar a"]
+-- ["delete","delete","delete","add b","add a"]
 
--- Una Solución
+-- One solution
 ultimos :: Int -> [a] -> [a]
 ultimos n = reverse . take n . reverse
 
@@ -42,33 +42,33 @@ convertir :: String -> String -> [String]
 convertir so sd = convertir_aux so sd [] []  
 
 convertir_aux :: [Char] -> [Char] -> [Char] -> [[Char]] -> [[Char]]
-convertir_aux [] [] sdi op = op ++ ["agregar " ++ [l] | l <- sdi]
-convertir_aux [] sdd [] op = op ++ ["agregar " ++ [l] | l <- sdd]
+convertir_aux [] [] sdi op = op ++ ["add " ++ [l] | l <- sdi]
+convertir_aux [] sdd [] op = op ++ ["add " ++ [l] | l <- sdd]
 convertir_aux so sdd sdi op 
-   | lso > lsdd = convertir_aux (take lsdd so) sdd [] (take (lso - lsdd) (repeat "eliminar"))
+   | lso > lsdd = convertir_aux (take lsdd so) sdd [] (take (lso - lsdd) (repeat "delete"))
    | so == sdd  = convertir_aux [] [] sdi op
    | lso < lsdd = convertir_aux so (take lso sdd) (ultimos (lsdd - lso) sdd) [] 
-   | otherwise  = convertir_aux (init so) (init sdd) ((last sdd):sdi) (op ++ ["eliminar"])
+   | otherwise  = convertir_aux (init so) (init sdd) ((last sdd):sdi) (op ++ ["delete"])
    where 
        lsdd = length sdd 
        lso = length so
 
--- Otra solución
+-- Another solution
 convertir' :: String -> String -> [String]
 convertir' as bs 
   | as == bs = []
-  | esPrefijo as bs = ("agregar " ++ c) : convertir' (as++c) bs
-  | otherwise = "eliminar" : convertir' as' bs
+  | esPrefijo as bs = ("add " ++ c) : convertir' (as++c) bs
+  | otherwise = "delete" : convertir' as' bs
   where c = take 1 (drop (length as) bs)
         as' = take (length as - 1) as
-        esPrefijo = isPrefixOf     -- Definido en Data.List
-        --esPrefijo [] _ = True    -- También se puede definir a mano
+        esPrefijo = isPrefixOf     -- Defined in Dates.List
+        --esPrefijo [] _ = True    -- Also can  define manually
         --esPrefijo xs ys =  xs == take (length xs) ys
 
--- Ejercicio 1.2 (0,5 puntos)
--- Comprueba con quickCheck que cualquier cadena as se puede convertir en bs, es
--- decir, que la secuencia de operaciones nunca es vacía, a no ser que as sea
--- igual que bs.
+-- Exercise 1.2 (0,5 puntos)
+-- Checks with quickCheck that any chain ace can turn bs, that is to say
+--, that the sequence of operations never is empty, unless ace was
+-- equal that bs.
 
 prop_convierte :: String -> String -> Property 
 prop_convierte as bs = as /= bs ==> not (null (convertir as bs))
@@ -76,20 +76,20 @@ prop_convierte as bs = as /= bs ==> not (null (convertir as bs))
 -- -----------------------------------------------------------------------------
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 2 (2,5 puntos)
--- Usaremos el tipo de dato algebraico de árbol con valores solo en los nodos:
+-- Exercise 2 (2,5 puntos)
+-- will use the type of algebraic data of tree with alone values in the nodes:
 
 data Arbol a = H | N a (Arbol a) (Arbol a)
   deriving (Show, Eq)
 
--- Un árbol A está subcontenido en otro árbol B si los elementos de A aparecen
--- en B respetando el orden de jerarquía. Esto es, para cada nodo n del árbol A, 
--- se cumple lo siguiente:
---   * El valor del nodo n está en el árbol B. Sea m el nodo con ese valor en B.
---   * El subárbol izquierdo del nodo n está subcontenido en el subárbol 
---     izquierdo del nodo m (ídem para el subárbol derecho). 
---   * Un árbol que es un nodo hoja siempre está subcontenido en otro árbol.
--- Por ejemplo, supongamos los siguientes árboles:
+-- A tree To is subcontenido in another tree B if the elements of To appear
+-- in B respecting the order of hierarchy. This is, for each node n of the tree To, 
+-- fulfils  the following:
+--    The value of the node n is in the tree B. It was m the node with this value in B.
+--    The subárbol left of the node n is subcontenido in the subárbol 
+--     left of the node m (ídem para el subárbol derecho). 
+--    A tree that is a node leaf always is subcontenido in another tree.
+-- For example, suppose the following trees:
 --  a1:        a2:            a3:        a4:
 --      3            2           3           3
 --     / \          / \         / \         / \
@@ -99,12 +99,12 @@ data Arbol a = H | N a (Arbol a) (Arbol a)
 --                                      /     \      
 --                                     3       1
 --
--- El árbol a1 está subcontenido en a3 y el árbol a2 está subcontenido en a4. 
--- Pero a1 no está subcontenido en a4 ni en a2 (comparten raíz, y el subárbol
--- izquierdo está subcontenido, pero no el subárbol derecho), y tampoco a2 está 
--- en a3 (el nodo 2 está en a3, pero en a3 no tiene subárboles).
--- Define la función (subcontenido a1 a2) tal que compruebe que el árbol a1
--- está subcontenido en a2.
+-- The tree a1 is subcontenido in a3 and the tree a2 is subcontenido in a4. 
+-- But a1 is not subcontenido in a4 neither in a2 (share root, and the subárbol
+-- left is subcontenido, but no the subárbol right), and neither a2 is 
+-- in a3 (el nodo 2 está en a3, pero en a3 no tiene subárboles).
+-- It defines the function (subcontenido a1 a2) such that check that the tree a1
+-- is subcontenido in a2.
 
 a1,a2,a3,a4 :: Arbol Int 
 a1 = N 3 (N 2 H H) (N 1 H H) 
@@ -135,29 +135,29 @@ subcontenido _ _ = False
 -- -----------------------------------------------------------------------------
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 3 (2 puntos)
--- Define la función (pliegaMatriz m f), donde m es una matriz de dos dimensiones,
--- y f es una función de dos argumentos, (f x y). Plegar una matriz es el resultado
--- de aplicar la función f, elemento a elemento, a la primera columna con la última
--- columna, la segunda con la penúltima, la tercera con la antepenúltima ...
--- la penúltima con la segunda y la última con la primera. Si la columna tiene un
--- número impar de columnas, f se aplica a la columna central con ella misma. Por
--- ejemplo, supongamos la siguiente matriz con un número impar de columnas y f = +:
+-- Exercise 3 (2 puntos)
+-- Defines the function (pliegaMatriz m f), where m is a matrix of two dimensions,
+-- and f is a function of two arguments, (f x y). Fold a matrix is the result
+-- to apply the function f, element to element, to the first column with the last
+-- column, the second with the penultimate, the third with the antepenultimate...
+-- The penultimate with the second and the last with the first. If the column has a
+-- number impar of columns, f applies  to the central column with her same. For example
+--, we suppose the following matrix with a number impar of columns and f = +:
 --  ┌           ┐            ┌                                         ┐        ┌             ┐
---  │ 1 2 3 4 5 |   pliega   | (f 1 5) (f 2 4) (f 3 3) (f 4 2) (f 5 1) |  f=+   | 6  6 6 6 6  |
+--  │ 1 2 3 4 5 |   it folds   | (f 1 5) (f 2 4) (f 3 3) (f 4 2) (f 5 1) |  f=+   | 6  6 6 6 6  |
 --  │ 2 3 1 6 8 |  ------->  | (f 2 8) (f 3 6) (f 1 1) (f 6 3) (f 8 2) |  --->  | 10 9 2 9 10 |
 --  └           ┘            └                                         ┘        └             ┘
---  Otro ejemplo con un número par de columnas y f = ^ :             
+--  Another example with a number pair of columns and f = ^:             
 --  ┌         ┐            ┌                                 ┐        ┌          ┐
---  | 3 4 2 1 |   pliega   | (f 3 1) (f 4 2) (f 2 4) (f 1 3) |  f=^   | 3 16 8 1 |
+--  | 3 4 2 1 |   it folds   | (f 3 1) (f 4 2) (f 2 4) (f 1 3) |  f=^   | 3 16 8 1 |
 --  | 2 3 3 2 |  ------->  | (f 2 3) (f 3 3) (f 3 3) (f 2 2) |  --->  | 4 9  9 4 |
 --  | 1 2 3 4 |            | (f 1 4) (f 2 3) (f 3 2) (f 4 1) |        | 1 8  9 4 |
 --  └         ┘            └                                 ┘        └          ┘                                                     
--- NOTA: se conseguirá la nota al completo si la función acepta cualquier rango de 
--- índices para las columnas; es decir, no siempre tienen por qué empezar por el 1, 
--- también por el 0, como mej3. Si no lo consigues pero lo haces funcionar para
--- rangos que comiencen por 1 (como mej1 y mej2), obtendrás la mitad de la nota en el
--- ejercicio.
+-- NOTE: it will achieve  the note to the complete if the function accepts any rank of 
+-- indexes for the columns; that is to say, no always they have why begin by the 1, 
+-- also by the 0, like mej3. If you do not achieve it but you do it work for
+-- ranks that begin by 1 (como mej1 y mej2), will obtain the half of the note in the
+-- exercise.
 --
 mej1,mej2,mej3 :: Array (Int,Int) Int
 mej1 = listArray ((1,1),(2,5)) [1,2,3,4,5,
@@ -193,33 +193,33 @@ pliegaMatriz f m = listArray (bounds m) [ g i j | (i,j) <- indices m]
 -- -----------------------------------------------------------------------------
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 4 (2,5 puntos)
--- Se pide implementar un menú desplegable en ASCII. Para ello se deberá imprimir 
--- por pantalla una primera línea correspondiente a las opciones del menú principal
---  (Archivo, Editar, Salir). Esta primera línea debe ir con el fondo azul. Las
--- opciones "Archivo" y "Editar" tienen asociados un submenu. Cuando se selecciona
--- una de estas opciones, el submenu correspondiente se debe mostrar debajo de ella.
--- Las opciones de menú se seleccionan mediante una letra que está resaltada en 
--- rojo. Para imprimir por pantalla en color, tanto las letras como el fondo, se
--- deben usar los códigos de escape aportados. Por ejemplo, si queremos imprimir en
--- color rojo un texto, imprimimos por pantalla el código es escape rojo, seguidamente 
--- el texto y por último el código de escape blanco para volver a color habitual.
--- Prueba el siguiente ejemplo
+-- Exercise 4 (2,5 puntos)
+-- asks  implement a menu desplegable in ASCII. For this will have to print  
+-- by screen a first corresponding line to the options of the main menu
+--  (File, Edit, Exit). This first line has to go with the blue fund. The
+-- options "File" and "Edit" have associated a submenu. When it selects 
+-- one of these options, the submenu corresponding has to show  under her.
+-- The options of menu select  by means of a letter that is highlighted in 
+-- red. To print by screen in colour, so much the letters like the fund, have to
+-- use  the codes of leakage contributed. For example, if we want to print in colour red
+--   a text, print by screen the code is red leakage, next 
+-- the text and finally the code of white leakage to go back to usual colour.
+-- It tries the following example
 --
 -- > putStrLn (rojo ++ "Hola" ++ blanco ++ " mundo")   
 --
--- También se propocionar una función para limpiar la pantalla y una lista con la 
--- estructura de menú. Las tuplas (Int, String), representan el índice de la letra a 
--- resaltar en rojo y el texto de la opción de menú o submenú. Cada opción de menú puede
--- tener asociado una lista de opciones de submenu. En el caso de "Salir", esta lista 
--- está vacia, ya que no tiene submenu asociado.
+-- Also  propocionar a function to clean the screen and a list with the 
+-- structure of menu. The tuplas (Int, String), represent the index of the letter to 
+-- highlight in red and the text of the option of menu or submenú. Each option of menu can
+-- have associated a list of options of submenu. In the case of "Exit", this list 
+-- is vacia, since it does not have submenu associated.
 --
--- Nota: ver el video con la funcionalidad esperada a implementar.
+-- It note: see the video with the functionality expected to implement.
 
--- Esta función limpia la pantalla
+-- This function clears the screen
 limpiar = putStr "\ESC[2J"
 
--- Códigos de escape de color
+-- Colour escape codes
 rojo = "\ESC[31m" 
 blanco = "\ESC[37m"
 fondo_azul = "\ESC[44m"
@@ -227,9 +227,9 @@ fondo_negro = "\ESC[40m"
 
 
 menu :: [((Int, String), [(Int, String)])]
-menu = [((1, "Archivo"), [(1, "Cargar"), (1, "Guardar")]), ((1, "Editar"), [(1, "Rehacer"), (1, "Copiar"), (1, "Pegar")]), ((1, "Salir"), [] )]
+menu = [((1, "File"), [(1, "Load"), (1, "Save")]), ((1, "Edit"), [(1, "Redo"), (1, "Copy"), (1, "Paste")]), ((1, "Exit"), [] )]
 
--- Código del alumno...
+-- Student code...
 
 colorea :: String -> String -> Int -> String
 colorea color opcion pos = concat [if pos == i then color ++ (c:blanco) else [c] | (c, i) <- zip opcion [1..] ]  
@@ -257,13 +257,13 @@ gestiona_menu submenu letra = do
         putStrLn ""
 
     if letra /= "" then
-        putStrLn ("Ultima letra pulsada: " ++ letra)
+        putStrLn ("Last key pressed: " ++ letra)
     else
         putStr ""
 
-    putStrLn "Pulse una letra de opción de menú"
-    --c <- getChar   -- en Linux
-    c <- fmap head getLine      -- en Windows
+    putStrLn "Press a menu option letter"
+    --c <- getChar   -- In Linux
+    c <- fmap head getLine      -- in Windows
     let o = toUpper c
     limpiar
     

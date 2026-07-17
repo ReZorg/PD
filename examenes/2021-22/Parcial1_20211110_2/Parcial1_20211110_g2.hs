@@ -1,34 +1,34 @@
 -- -----------------------------------------------------------------------------
--- Programación Declarativa 2021/22
--- Grado de Ingeniería Informática - Tecnologías Informáticas
--- Parcial 1 (grupo 2)                                   10 de Noviembre de 2021
+-- Declarative Programming 2021/22
+-- Degree in Computer Engineering - Information Technologies
+-- Midterm 1 (group 2)                                   November 10, 2021
 -- -----------------------------------------------------------------------------
--- Apellidos:
--- Nombre:
+-- Surnames:
+-- Name:
 -- UVUS:
--- Laboratorio/Puesto:
+-- Laboratory/Workstation:
 -- -----------------------------------------------------------------------------
--- INSTRUCCIONES PARA LA ENTREGA
--- 1. CAMBIA EL NOMBRE de este archivo por:       <uvus>.hs
---    donde "<uvus>" es tu UVUS.
--- 2. COMENTA LAS LÍNEAS CON ERRORES hasta que se pueda cargar el fichero
---    sin problemas. ESCRIBE tu nombre y apellidos en la cabecera.
--- 3. COMPRIME este archivo en un único fichero llamado EXACTAMENTE:
---      ENTREGA-<uvus>.tar.gz      (o bien)       ENTREGA-<uvus>.tar.xz
---    donde "<uvus>" es tu UVUS. No te olvides del guión después de
---    ENTREGA, y NO lo comprimas en un fichero .zip.
--- 4. REINICIA el equipo. En el menú de selección del sistema (con fondo
---    blanco), HAZ CLICK SOBRE "Enviar examen" al lado de sistema Ubuntu.
--- 5. Pregunta al profesor si ha llegado tu correo correctamente, si es
---    así, ya puedes dejar tu puesto SIN APAGAR EL EQUIPO.
+-- SUBMISSION INSTRUCTIONS
+-- 1. It changes THE NAME of this archive by:       <uvus>.hs
+--    Where "<uvus>" is your UVUS.
+-- 2. It comments THE LINES WITH ERRORS until it can upload  the file
+--    without problems. It writes your name and surnames in the cabecera.
+-- 3. It compresses this archive in an only file called EXACTLY:
+--      DELIVERY-<uvus>.tar.gz      (o bien)       Delivery-<uvus>.tar.xz
+--    Where "<uvus>" is your UVUS. You do not forget you of the script after
+--    DELIVERY, and do not compress it in a file.zip.
+-- 4. REINICIA The squad. In the menu of selection of the system (with white
+--    fund), DO CLICK ON "Sending examination" at the side of system Ubuntu.
+-- 5. Question to the professor if it has arrived your post correctly, if it is
+--    like this, already can leave your place WITHOUT TURN THE SQUAD.
 -- ----------------------------------------------------------------------
--- ORIENTACIONES
--- · Escribe la solución de cada ejercicio en el hueco reservado para
---   ello.
--- · Se valorará el uso correcto de tipados para cada función definida.
--- · Puedes añadir tantas funciones auxiliares como necesites (incluyendo su 
---   signatura adecuadamente).
--- · Puedes usar otros módulos de Haskell que estén ya importados.
+-- GUIDELINES
+-- · Writes the solution of each exercise in the hollow reserved for
+--   this.
+-- · It will value  the correct use of tipados for each clear-cut function.
+-- · You can add so many auxiliary functions as you need (including his 
+--   signatura adequately).
+-- · You can use other modules of Haskell that are already imported.
 -- -----------------------------------------------------------------------------
 
 import Test.QuickCheck
@@ -36,12 +36,12 @@ import Data.Char
 import Data.List
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 1 (2 puntos)
--- Definir el operador infijo (/^) tal que reciba dos números reales x e 
--- y, y devuelva el exponente obtenido empleando como base el menor de x
--- e y, y como exponente el mayor de x e y.
--- Debe tener la misma precedencia que el operador **, y la asociatividad
--- requerida para que los siguientes ejemplos sean correctos. Por ejemplo:
+-- Exercise 1 (2 puntos)
+-- Define the operator infijo (/^) such that receive two real numbers x and 
+-- and, and give the exponent obtained employing like base the minor of x
+-- and and, and like exponent the elder of x and and.
+-- It has to have the same precedence that the operator, and the asociatividad
+-- required so that the following examples are correct. For example:
 -- > 3 /^ 2
 -- 8.0
 -- > 2 /^ 3
@@ -58,11 +58,11 @@ import Data.List
 
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 2.1 (1 punto) Define la función (gmaxR g xs) tal que reciba una 
--- función g y una lista xs, y devuelva todo elemento x de xs que cumpla con lo
--- siguiente: si x1, x, x2 son elementos consecutivos, (g x1) es menor que (g x),
--- y (g x) es mayor que (g x2). Define la función empleando RECURSIÓN.
--- Por ejemplo,
+-- Exercise 2.1 (1 punto) Defines the function (gmaxR g xs) such that receive a 
+-- function g and a list xs, and give all element x of xs that fulfil with the
+-- following: if x1, x, x2 are consecutive elements, (g x1) is minor that (g x),
+-- and (g x) is main that (g x2). It defines the function employing RECURSION.
+-- For example,
 -- > gmaxR (^2) [2,3]
 -- []
 -- > gmaxR (^2) [2,3,2]
@@ -78,9 +78,9 @@ import Data.List
 gmaxR = undefined
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 2.2 (1 punto) Define la función (gmaxO g xs) como la anterior,
--- pero usando ORDEN SUPERIOR para recorrer los elementos.
--- Por ejemplo,
+-- Exercise 2.2 (1 punto) Defines the function (gmaxO g xs) like the anterior,
+-- but using UPPER ORDER to visit the elements.
+-- For example,
 -- > gmaxO (^2) [2,3]
 -- []
 -- > gmaxO (^2) [2,3,2]
@@ -96,15 +96,15 @@ gmaxR = undefined
 gmaxO = undefined
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 2.3 (1 punto) Comprueba con quickCheck para todo número x
--- positivo, y cualquier lista xs no vacía, el resultado de gmax con (g = *x)
--- y xs, tiene como mucho un tercio de elementos de xs. Si hubiese un
--- contraejemplo, copia y pégalo como un comentario.
+-- Exercise 2.3 (1 punto) Checks with quickCheck for all number x
+-- positive, and any ready xs no empty, the result of gmax with (g = *x)
+-- and xs, has as a lot a third of elements of xs. If there was a
+-- counterexample, copy and paste it like a commentary.
 -- -----------------------------------------------------------------------------
 
 prop_gmax = undefined
 
-{- La comprobación es:
+{- The check is:
 
 -}
 
@@ -112,13 +112,13 @@ prop_gmax = undefined
 
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 3 (2,5 puntos). El horario de clase se puede representar como una
--- lista de tuplas donde:
---   * la primera componente es el nombre abreviado de la asignatura, 
---   * la segunda componente una lista de ternas, donde:
---      - la primera componente es el nombre del día abreviado
---      - la segunda componente es un par que indica hora y minuto de comienzo
---      - la tercera componente es un par que indica hora y minuto de finalización
+-- Exercise 3 (2,5 puntos). The schedule of class can represent  like a
+-- list of tuplas where:
+--    the first component is the name abridged of the subject, 
+--    the second component a list of triples, where:
+--      - the first component is the name of the day abridged
+--      - the second component is a pair that indicates hour and minute of beginning
+--      - the third component is a pair that indicates hour and minute of ending
 
 horario :: [ ( String, [(String, (Int,Int), (Int,Int))] ) ]
 horario = [ ("PD",    [("Mie",(12,30),(14,30)),("Mie",(15,30),(17,30)),("Vie",(12,30),(14,30))]),
@@ -128,13 +128,13 @@ horario = [ ("PD",    [("Mie",(12,30),(14,30)),("Mie",(15,30),(17,30)),("Vie",(1
             ("GSI",   [("Mie",(10,30),(12,30)),("Vie",(8,30),(10,30)), ("Vie",(10,30),(12,30))])
           ]
 
--- Define la función (invierteHorario hss), tal que reciba un horario hss
--- como el anterior, y devuelva el calendario de mañana (de 8:00 a 13:00)
--- indicando para cada día de la semana y cada hora, las asignaturas que tenemos
--- programadas. Si no hay asignaturas en un horario, se pone la lista vacía.
--- En concreto, se debe devolver una lista de pares, donde el primero es el día de la
--- semana, y el segundo es una lista de pares (hora,as), siendo as la lista de las 
--- asignaturas que hay en ese momento. Por ejemplo,
+-- Defines the function (invierteHorario hss), such that receive a schedule hss
+-- like the anterior, and give the calendar of morning (de 8:00 a 13:00)
+-- indicating for each day of the week and each hour, the subjects that have
+-- programmed. If there are not subjects in a schedule, puts  the empty list.
+-- In concrete, has to give a list of pairs, where the first is the day of the
+-- week, and the second is a list of pairs (hora,as), being ace the list of the 
+-- subjects that there is in this moment. For example,
 -- > invierteHorario horario
 --    [("Lun",[(8,[]),(9,[]),(10,[]),(11,[]),(12,[]),(13,["TAI"]),(14,["TAI"])]),
 --     ("Mar",[(8,[]),(9,["IA"]),(10,["IA"]),(11,["CIMSI"]),(12,["CIMSI"]),(13,["TAI"]),(14,["TAI"])]),
@@ -150,20 +150,20 @@ invierteHorario = undefined
 
 
 -- -----------------------------------------------------------------------------
--- Ejercicio 4 (2,5 puntos) El siguiente problema está basado en el 414
--- del proyecto Euler. La rutina de Kaprekar comienza con un número n que
--- contiene 4 o menos cifras, y se calcula otro número como sigue:
---   * Si n tiene menos de 4 cifras, se extiende añadiendo ceros
---     a la izquierda hasta tener 4 cifras.
---   * Se obtienen dos números, uno ordenando las cifras de mayor a menor
---     y otro ordenando de menor a mayor. El nuevo número es la resta
---     del primero con el segundo.
--- Por ejemplo, si n=0837, entonces el siguiente es 8730-0378=8352.
--- El proceso acaba siempre con el 0 o con la constante de Kaprekar. Esta
--- constante es el 6174, ya que 7641-1467=6174.
--- Define la función (kaprekar n) tal que devuelva el número de pasos en
--- la rutina de Kaprekar comenzando con n hasta llegar al 0 o al 6174.
--- Por ejemplo,
+-- Exercise 4 (2,5 puntos) The following problem is based in the 414
+-- of the project Euler. The routine of Kaprekar begins with a number n that
+-- contains 4 or fewer figures, and calculates  another number as follows:
+--    If n has less than 4 figures, extends  adding zeros
+--     to the left until having 4 figures.
+--    They obtain  two numbers, one ordering the figures of elder to minor
+--     and another ordering of minor to elder. The new number is subtracts it
+--     of the first with the second.
+-- For example, if n=0837, then the following is 8730-0378=8352.
+-- The process finishes always with the 0 or with the constant of Kaprekar. This
+-- constant is the 6174, since 7641-1467=6174.
+-- It defines the function (kaprekar n) such that give the number of steps in
+-- the routine of Kaprekar beginning with n until arriving to the 0 or to the 6174.
+-- For example,
 -- > kaprekar 6174
 -- 1
 -- > kaprekar 837
